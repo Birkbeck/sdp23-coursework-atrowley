@@ -1,3 +1,6 @@
+// Name: Adam Rowley
+// username (github): atrowley
+
 package sml;
 
 import java.io.IOException;
