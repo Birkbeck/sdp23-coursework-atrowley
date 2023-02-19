@@ -2,12 +2,15 @@ package sml;
 
 // TODO: write a JavaDoc for the class
 
+import java.util.Objects;
+
 /**
  * Represents an abstract instruction.
  *
  * @author ...
  */
-public abstract class Instruction {
+public abstract class
+Instruction {
 	protected final String label;
 	protected final String opcode;
 
@@ -50,8 +53,19 @@ public abstract class Instruction {
 
 	// TODO: What does abstract in the declaration below mean?
 	//       (Write a short explanation.)
+	/**
+	 * Making the toString() method abstract will ensure that all
+	 * subclasses of Instruction will have to include in implementation of the method
+	 */
 	@Override
 	public abstract String toString();
 
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+
+	@Override
+	public abstract boolean equals(Object obj);
+
+	@Override
+	public abstract int hashCode();
+
 }

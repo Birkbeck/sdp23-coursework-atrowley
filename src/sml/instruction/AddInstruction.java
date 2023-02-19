@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 // TODO: write a JavaDoc for the class
 
 /**
@@ -28,6 +30,23 @@ public class AddInstruction extends Instruction {
 		int value2 = m.getRegisters().get(source);
 		m.getRegisters().set(result, value1 + value2);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
+	}
+
+
+	/**
+	 * AR TODO: placeholder to complete
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return false;
+	}
+
+	/**
+	 * AR TODO: placeholder to complete
+	 */
+	@Override
+	public int hashCode() {
+		return 0;
 	}
 
 	@Override
