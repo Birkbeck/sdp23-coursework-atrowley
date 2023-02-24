@@ -20,6 +20,9 @@ public final class Registers {
         clear(); // the class is final
     }
 
+    /**
+     * [AR] Adds each respective Register and start val zero to registers Map
+     */
     public void clear() {
         for (Register register : Register.values())
             registers.put(register, 0);

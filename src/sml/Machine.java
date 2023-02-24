@@ -16,9 +16,7 @@ import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 public final class Machine {
 
 	private final Labels labels = new Labels();
-
 	private final List<Instruction> program = new ArrayList<>();
-
 	private final Registers registers;
 
 	// The program counter; it contains the index (in program)

@@ -44,7 +44,6 @@ Instruction {
 	 *          or NORMAL_PROGRAM_COUNTER_UPDATE to indicate that
 	 *          the instruction with the next address is to be executed
 	 */
-
 	public abstract int execute(Machine machine);
 
 	protected String getLabelString() {
@@ -61,7 +60,6 @@ Instruction {
 	public abstract String toString();
 
 	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
-
 	@Override
 	public abstract boolean equals(Object obj);
 
