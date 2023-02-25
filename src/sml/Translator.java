@@ -28,11 +28,12 @@ public final class Translator {
         this.fileName =  fileName;
     }
 
+
     // translate the small program in the file into lab (the labels) and
     // prog (the program)
     // return "no errors were detected"
-
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
+
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
             program.clear();
@@ -65,12 +66,18 @@ public final class Translator {
         if (line.isEmpty())
             return null;
 
+        // TODO [AR]: fix dependency injection. Code creates new instances of concrete classes
         String opcode = scan();
         switch (opcode) {
             case AddInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
                 return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
+            }
+            case MoveInstruction.OP_CODE -> {
+                String r = scan();
+                int v = Integer.parseInt(scan());
+                return new MoveInstruction(label, Register.valueOf(r), v);
             }
 
             // TODO: add code for all other types of instructions
