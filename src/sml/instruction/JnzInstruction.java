@@ -1,13 +1,10 @@
 package sml.instruction;
 
 import sml.Instruction;
-import sml.InstructionWithResultAndSource;
 import sml.Machine;
 import sml.RegisterName;
 
 import java.util.Objects;
-
-import static sml.Registers.Register.EBX;
 
 // TODO: write a JavaDoc for the class
 
@@ -15,19 +12,23 @@ import static sml.Registers.Register.EBX;
  * @author
  */
 
-public class OutInstruction extends Instruction {
+public class JnzInstruction extends Instruction {
 	private final RegisterName source;
+	private final String labelToJumpTo;
 
-	public static final String OP_CODE = "out";
+	public static final String OP_CODE = "jnz";
 
-	public OutInstruction(String label, RegisterName source) {
+	public JnzInstruction(String label, RegisterName source, String labelToJumpTo) {
 		super(label, OP_CODE);
 		this.source = source;
+		this.labelToJumpTo = labelToJumpTo;
 	}
 
 	@Override
 	public int execute(Machine m) {
-		System.out.println(m.getRegisters().get(source));
+		if(m.getRegisters().get(source) != 0){
+			return m.getLabels().getAddress(labelToJumpTo);
+		};
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
@@ -37,10 +38,11 @@ public class OutInstruction extends Instruction {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof OutInstruction)) return false;
-		OutInstruction other = (OutInstruction) obj;
+		if(!(obj instanceof JnzInstruction)) return false;
+		JnzInstruction other = (JnzInstruction) obj;
 		return this.source.equals(other.source)
 				&& this.opcode.equals(other.opcode)
+				&& this.labelToJumpTo.equals(other.labelToJumpTo)
 				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
@@ -54,6 +56,6 @@ public class OutInstruction extends Instruction {
 
 	@Override
 	public String toString() {
-		return getLabelString() +  getOpcode() + " " + source;
+		return getLabelString() + getOpcode() + " " + source + " " + labelToJumpTo;
 	}
 }

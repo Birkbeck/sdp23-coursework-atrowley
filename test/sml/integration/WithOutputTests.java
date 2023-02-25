@@ -35,13 +35,8 @@ public class WithOutputTests {
         translator = null;
     }
 
-    /**
-     * mov EAX 500
-     * out EAX
-     */
-    @Test
-    void testMovOut1() {
-        String testFilePath = "test/sml/test-files/mov-out-only.sml";
+
+    private void validateConsoleOutput(String testFilePath, String expectedOutput){
         translator = new Translator(testFilePath);
 
         try {
@@ -52,10 +47,52 @@ public class WithOutputTests {
             String outputString = byteArrayStream.toString();
             System.setOut(System.out);
 
-            Assertions.assertEquals("500", outputString.trim());
+            Assertions.assertEquals(expectedOutput, outputString.trim());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * mov EAX 500
+     * out EAX
+     */
+    @Test
+    void testMovOut1() {
+        String testFilePath = "test/sml/test-files/mov-out-only.sml";
+        validateConsoleOutput(testFilePath, "500");
+    }
+
+
+    /**
+     * f1: mov EAX 2
+     *     mov EBX 1
+     *     sub EAX EBX
+     *     jnz EAX f1
+     *     out EAX
+     */
+    @Test
+    void testJnz1() {
+        String testFilePath = "test/sml/test-files/jnz-test1.sml";
+        validateConsoleOutput(testFilePath, "0");
+    }
+
+    /**
+     *     mov EAX 6
+     *     mov EBX 1
+     *     mov ECX 1
+     * f3: mul EBX EAX
+     *     sub EAX ECX
+     *     jnz EAX f3
+     *     out EBX
+     */
+    @Test
+    void testJnz2() {
+        String testFilePath = "test/sml/test-files/jnz-test2.sml";
+        validateConsoleOutput(testFilePath, "720");
+    }
+
+
 }
