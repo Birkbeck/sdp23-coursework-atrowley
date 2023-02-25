@@ -4,6 +4,8 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
+import java.util.Objects;
+
 // TODO: write a JavaDoc for the class
 
 /**
@@ -31,11 +33,16 @@ public class MoveInstruction extends Instruction {
 
 
 	/**
-	 * AR TODO: placeholder to complete
+	 * AR TODO: Javadoc
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return false;
+		if(!(obj instanceof MoveInstruction)) return false;
+		MoveInstruction other = (MoveInstruction) obj;
+		return this.result.equals(other.result)
+				&& this.value == other.value
+				&& this.opcode.equals(other.opcode)
+				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	/**

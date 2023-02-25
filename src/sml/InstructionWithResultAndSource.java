@@ -2,6 +2,7 @@ package sml;
 
 // TODO: write a JavaDoc for the class
 
+import java.util.Objects;
 import java.util.function.BinaryOperator;
 
 /**
@@ -35,7 +36,8 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 		InstructionWithResultAndSource other = (InstructionWithResultAndSource) obj;
 		return this.result.equals(other.result)
 				&& this.source.equals(other.source)
-				&& this.opcode.equals(other.opcode);
+				&& this.opcode.equals(other.opcode)
+				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	public abstract int execute(Machine machine);

@@ -9,20 +9,22 @@ import java.io.IOException;
 import static sml.Registers.Register.*;
 
 class IntegrationTests {
+
   private Machine machine;
   private Registers registers;
+  Translator translator;
 
   @BeforeEach
   void setUp() {
     machine = new Machine(new Registers());
     registers = machine.getRegisters();
-    //...
   }
 
   @AfterEach
   void tearDown() {
     machine = null;
     registers = null;
+    translator = null;
   }
 
   /**
@@ -32,12 +34,11 @@ class IntegrationTests {
    * @param reg
    */
   private void validateInputFileWithExpectedResult(String inputFilePath, int expectedResult, RegisterName reg){
-    Translator t = new Translator(inputFilePath);
-    Machine m = new Machine(new Registers());
+    translator = new Translator(inputFilePath);
     try {
-      t.readAndTranslate(m.getLabels(), m.getProgram());
-      m.execute();
-      Assertions.assertEquals(expectedResult, m.getRegisters().get(reg));
+      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
+      machine.execute();
+      Assertions.assertEquals(expectedResult, machine.getRegisters().get(reg));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -161,6 +162,7 @@ class IntegrationTests {
     String testFilePath = "test/sml/test-files/mov-div-only2.sml";
     validateInputFileWithExpectedResult(testFilePath, 10, EAX);
   }
+
 
 }
 

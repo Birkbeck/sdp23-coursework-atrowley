@@ -65,5 +65,44 @@ class MoveInstructionTest {
     Assertions.assertEquals(25, machine.getRegisters().get(EBX));
   }
 
+  @Test
+  void testEquality1() {
+    Instruction instruction = new MoveInstruction(null, EAX,8);
+    Instruction instruction2 = new MoveInstruction(null, EAX, 8);
+    Assertions.assertEquals(instruction, instruction2);
+  }
+
+
+  @Test
+  void testEquality2() {
+    Instruction instruction = new MoveInstruction("f1", EBX, 9);
+    Instruction instruction2 = new MoveInstruction("f1", EBX, 9);
+    Assertions.assertEquals(instruction, instruction2);
+  }
+
+
+  @Test
+  void testInequality1() {
+    Instruction instruction = new MoveInstruction(null, EAX, 8);
+    Instruction instruction2 = new MoveInstruction(null, EBX, 8);
+    Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+
+  @Test
+  void testInequality2() {
+    Instruction instruction = new MoveInstruction(null, EAX, 8);
+    Instruction instruction2 = new MoveInstruction(null, EAX, 9);
+    Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+
+  @Test
+  void testInequality3() {
+    Instruction instruction = new MoveInstruction("f1", EAX, 8);
+    Instruction instruction2 = new MoveInstruction(null, EAX, 8);
+    Assertions.assertNotEquals(instruction, instruction2);
+  }
+
 
 }
