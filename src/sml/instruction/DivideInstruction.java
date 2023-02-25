@@ -9,17 +9,17 @@ import sml.RegisterName;
  * @author
  */
 
-public class MultiplyInstruction extends InstructionWithResultAndSource {
+public class DivideInstruction extends InstructionWithResultAndSource {
 
-	public static final String OP_CODE = "mul";
+	public static final String OP_CODE = "div";
 
-	public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
+	public DivideInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, result, source, OP_CODE);
 	}
 
 	@Override
 	public int execute(Machine m) {
-		applyExecution((a, b) -> a * b, m);
+		applyExecution((a, b) -> a / b, m);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 

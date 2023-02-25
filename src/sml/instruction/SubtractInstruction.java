@@ -1,6 +1,6 @@
 package sml.instruction;
 
-import sml.Instruction;
+import sml.InstructionWithResultAndSource;
 import sml.Machine;
 import sml.RegisterName;
 
@@ -9,46 +9,17 @@ import sml.RegisterName;
 /**
  * @author
  */
-
-public class SubtractInstruction extends Instruction {
-	private final RegisterName result;
-	private final RegisterName source;
+public class SubtractInstruction extends InstructionWithResultAndSource {
 
 	public static final String OP_CODE = "sub";
 
 	public SubtractInstruction(String label, RegisterName result, RegisterName source) {
-		super(label, OP_CODE);
-		this.result = result;
-		this.source = source;
+		super(label, result, source, OP_CODE);
 	}
 
 	@Override
 	public int execute(Machine m) {
-		int value1 = m.getRegisters().get(result);
-		int value2 = m.getRegisters().get(source);
-		m.getRegisters().set(result, value1 - value2);
+		applyExecution((a, b) -> a - b, m);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
-	}
-
-
-	/**
-	 * AR TODO: placeholder to complete
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		return false;
-	}
-
-	/**
-	 * AR TODO: placeholder to complete
-	 */
-	@Override
-	public int hashCode() {
-		return 0;
-	}
-
-	@Override
-	public String toString() {
-		return getLabelString() + getOpcode() + " " + result + " " + source;
 	}
 }
