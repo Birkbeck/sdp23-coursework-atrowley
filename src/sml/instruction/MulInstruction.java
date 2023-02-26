@@ -9,11 +9,15 @@ import sml.RegisterName;
  * @author
  */
 
-public class MultiplyInstruction extends InstructionWithResultAndSource {
+public class MulInstruction extends InstructionWithResultAndSource {
 
 	public static final String OP_CODE = "mul";
 
-	public MultiplyInstruction(String label, RegisterName result, RegisterName source) {
+	public MulInstruction(String label, RegisterName result, RegisterName source) {
+		super(label, result, source, OP_CODE);
+	}
+
+	public MulInstruction(String label, String result, String source) {
 		super(label, result, source, OP_CODE);
 	}
 

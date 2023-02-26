@@ -9,11 +9,15 @@ import sml.RegisterName;
 /**
  * @author
  */
-public class SubtractInstruction extends InstructionWithResultAndSource {
+public class SubInstruction extends InstructionWithResultAndSource {
 
 	public static final String OP_CODE = "sub";
 
-	public SubtractInstruction(String label, RegisterName result, RegisterName source) {
+	public SubInstruction(String label, RegisterName result, RegisterName source) {
+		super(label, result, source, OP_CODE);
+	}
+
+	public SubInstruction(String label, String result, String source) {
 		super(label, result, source, OP_CODE);
 	}
 

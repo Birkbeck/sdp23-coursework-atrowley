@@ -70,7 +70,7 @@ class AddInstructionTest {
   @Test
   void testInequality2() {
     Instruction instruction = new AddInstruction(null,EAX, EBX);
-    Instruction instruction2 = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction2 = new MulInstruction(null,EAX, EBX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 

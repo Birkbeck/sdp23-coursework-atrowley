@@ -21,6 +21,13 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 		this.source = source;
 	}
 
+	public InstructionWithResultAndSource(String label, String result, String source, String OP_CODE) {
+		super(label, OP_CODE);
+		this.result = Registers.Register.valueOf(result);
+		this.source = Registers.Register.valueOf(source);
+	}
+
+
 	public void applyExecution(BinaryOperator<Integer> func, Machine m){
 		int value1 = m.getRegisters().get(result);
 		int value2 = m.getRegisters().get(source);

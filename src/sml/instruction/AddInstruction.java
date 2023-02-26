@@ -17,6 +17,10 @@ public class AddInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
+	public AddInstruction(String label, String result, String source) {
+		super(label, result, source, OP_CODE);
+	}
+
 	@Override
 	public int execute(Machine m) {
 		applyExecution(Integer::sum, m);

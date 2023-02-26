@@ -3,6 +3,7 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers;
 
 import java.util.Objects;
 
@@ -12,16 +13,22 @@ import java.util.Objects;
  * @author
  */
 
-public class MoveInstruction extends Instruction {
+public class MovInstruction extends Instruction {
 	private final RegisterName result;
 	private final int value;
 
 	public static final String OP_CODE = "mov";
 
-	public MoveInstruction(String label, RegisterName result, int value) {
+	public MovInstruction(String label, RegisterName result, int value) {
 		super(label, OP_CODE);
 		this.result = result;
 		this.value = value;
+	}
+
+	public MovInstruction(String label, String result, String value) {
+		super(label, OP_CODE);
+		this.result = Registers.Register.valueOf(result);
+		this.value = Integer.parseInt(value);
 	}
 
 	@Override
@@ -37,8 +44,8 @@ public class MoveInstruction extends Instruction {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if(!(obj instanceof MoveInstruction)) return false;
-		MoveInstruction other = (MoveInstruction) obj;
+		if(!(obj instanceof MovInstruction)) return false;
+		MovInstruction other = (MovInstruction) obj;
 		return this.result.equals(other.result)
 				&& this.value == other.value
 				&& this.opcode.equals(other.opcode)
