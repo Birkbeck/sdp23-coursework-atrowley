@@ -90,8 +90,21 @@ public class WithOutputTests {
      */
     @Test
     void testJnz2() {
-        String testFilePath = "test/sml/test-files/jnz-test3.sml";
+        String testFilePath = "test/sml/test-files/jnz-test2.sml";
         validateConsoleOutput(testFilePath, "720");
+    }
+
+    /**
+     * mov EAX 66
+     * mov EBX 10
+     * add EAX EAX
+     * mul EAX EBX
+     * out EAX
+     */
+    @Test
+    void testInputFile() {
+        String testFilePath = "test/sml/test-files/test1.sml";
+        validateConsoleOutput(testFilePath, "1320");
     }
 
 

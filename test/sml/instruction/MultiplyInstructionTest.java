@@ -31,14 +31,14 @@ class MultiplyInstructionTest {
 
   @Test
   void createsMulInstance() {
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals("mul", instruction.getOpcode());
   }
 
 
   @Test
   void validToString() {
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals("mul EAX EBX", instruction.toString());
   }
 
@@ -47,7 +47,7 @@ class MultiplyInstructionTest {
   void checkExecuteReturnsCounter() {
     registers.set(EAX, 1);
     registers.set(EBX, 1);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals(-1, instruction.execute(machine));
   }
 
@@ -55,7 +55,7 @@ class MultiplyInstructionTest {
   void checkResultAssignsToRegister() {
     registers.set(EAX, 25);
     registers.set(EBX, 1);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals(25, machine.getRegisters().get(EAX));
   }
 
@@ -63,7 +63,7 @@ class MultiplyInstructionTest {
   void checkSourceAssignsToRegister() {
     registers.set(EAX, 1);
     registers.set(EBX, 50);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals(50, machine.getRegisters().get(EBX));
   }
 
@@ -71,7 +71,7 @@ class MultiplyInstructionTest {
   void validMultiplicationTest1() {
     registers.set(EAX, 1);
     registers.set(EBX, 1);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(1, machine.getRegisters().get(EAX));
   }
@@ -80,7 +80,7 @@ class MultiplyInstructionTest {
   void validMultiplicationTest2() {
     registers.set(EAX, 5);
     registers.set(EBX, -2);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(-10, machine.getRegisters().get(EAX));
   }
@@ -89,43 +89,43 @@ class MultiplyInstructionTest {
   void validMultiplicationTest3() {
     registers.set(EAX, -5);
     registers.set(EBX, -6);
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(30, machine.getRegisters().get(EAX));
   }
 
   @Test
   void testEquality1() {
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
-    Instruction instruction2 = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
+    Instruction instruction2 = new MulInstruction(null,EAX, EBX);
     Assertions.assertEquals(instruction, instruction2);
   }
 
   @Test
   void testEquality2() {
-    Instruction instruction = new MultiplyInstruction("f1", ESP, EBP);
-    Instruction instruction2 = new MultiplyInstruction("f1", ESP, EBP);
+    Instruction instruction = new MulInstruction("f1", ESP, EBP);
+    Instruction instruction2 = new MulInstruction("f1", ESP, EBP);
     Assertions.assertEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality1() {
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
-    Instruction instruction2 = new MultiplyInstruction(null,EBX, EAX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
+    Instruction instruction2 = new MulInstruction(null,EBX, EAX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality2() {
-    Instruction instruction = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction(null,EAX, EBX);
     Instruction instruction2 = new AddInstruction(null,EAX, EBX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality3() {
-    Instruction instruction = new MultiplyInstruction("f1",EAX, EBX);
-    Instruction instruction2 = new MultiplyInstruction(null,EAX, EBX);
+    Instruction instruction = new MulInstruction("f1",EAX, EBX);
+    Instruction instruction2 = new MulInstruction(null,EAX, EBX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 

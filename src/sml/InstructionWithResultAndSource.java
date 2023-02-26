@@ -50,6 +50,12 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 		return 0;
 	}
 
+	/**
+	 * Returns a string that represents the instruction. For example:
+	 * <br><b>f1: add EAX EBX</b>
+	 *
+	 * @return string that represents the instruction
+	 */
 	@Override
 	public String toString() {
 		return getLabelString() + getOpcode() + " " + result + " " + source;

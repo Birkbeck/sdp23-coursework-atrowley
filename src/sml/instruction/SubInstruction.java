@@ -1,4 +1,5 @@
 package sml.instruction;
+
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
 import sml.RegisterName;
@@ -7,7 +8,7 @@ import sml.RegisterName;
  * Extends the InstructionWitResultAndSource class as constructor takes both
  * a source register and result register.
  *
- * Overrides the execute method to pass a BinaryOperator that represents an addition
+ * Overrides the execute method to pass a BinaryOperator that represents a subtraction
  * operation to the superclass method applyExecution().
  *
  * The superclass handles all common functionality of instructions that take both
@@ -17,17 +18,16 @@ import sml.RegisterName;
  * @author Adam Rowley
  * @author GitHub username atrowley
  */
-public class AddInstruction extends InstructionWithResultAndSource {
+public class SubInstruction extends InstructionWithResultAndSource {
 
-	public static final String OP_CODE = "add";
+	public static final String OP_CODE = "sub";
 
-	public AddInstruction(String label, RegisterName result, RegisterName source) {
+	public SubInstruction(String label, RegisterName result, RegisterName source) {
 		super(label, result, source, OP_CODE);
 	}
 
-
 	/**
-	 * Passes a BinaryOperator that represents an addition function
+	 * Passes a BinaryOperator that represents a subtraction operation
 	 * to the .applyExecution() method of the superclass
 	 *
 	 * @param machine an instanced Machine object
@@ -36,7 +36,7 @@ public class AddInstruction extends InstructionWithResultAndSource {
 	 */
 	@Override
 	public int execute(Machine machine) {
-		applyExecution(Integer::sum, machine);
+		applyExecution((a, b) -> a - b, machine);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 }

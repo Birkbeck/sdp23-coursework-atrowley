@@ -30,14 +30,14 @@ class SubtractInstructionTest {
 
   @Test
   void createsSubInstance() {
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals("sub", instruction.getOpcode());
   }
 
 
   @Test
   void validToString() {
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals("sub EAX EBX", instruction.toString());
   }
 
@@ -46,7 +46,7 @@ class SubtractInstructionTest {
   void checkExecuteReturnsCounter() {
     registers.set(EAX, 1);
     registers.set(EBX, 1);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals(-1, instruction.execute(machine));
   }
 
@@ -54,7 +54,7 @@ class SubtractInstructionTest {
   void checkResultAssignsToRegister() {
     registers.set(EAX, 25);
     registers.set(EBX, 1);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals(25, machine.getRegisters().get(EAX));
   }
 
@@ -62,7 +62,7 @@ class SubtractInstructionTest {
   void checkSourceAssignsToRegister() {
     registers.set(EAX, 1);
     registers.set(EBX, 50);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals(50, machine.getRegisters().get(EBX));
   }
 
@@ -70,7 +70,7 @@ class SubtractInstructionTest {
   void validSubtractionTest1() {
     registers.set(EAX, 1);
     registers.set(EBX, 1);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(0, machine.getRegisters().get(EAX));
   }
@@ -79,7 +79,7 @@ class SubtractInstructionTest {
   void validSubtractionTest2() {
     registers.set(EAX, -1);
     registers.set(EBX, -1);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(0, machine.getRegisters().get(EAX));
   }
@@ -88,43 +88,43 @@ class SubtractInstructionTest {
   void validSubtractionTest3() {
     registers.set(EAX, -1);
     registers.set(EBX, 0);
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     instruction.execute(machine);
     Assertions.assertEquals(-1, machine.getRegisters().get(EAX));
   }
 
   @Test
   void testEquality1() {
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
-    Instruction instruction2 = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
+    Instruction instruction2 = new SubInstruction(null,EAX, EBX);
     Assertions.assertEquals(instruction, instruction2);
   }
 
   @Test
   void testEquality2() {
-    Instruction instruction = new SubtractInstruction("f1", ESP, EBP);
-    Instruction instruction2 = new SubtractInstruction("f1", ESP, EBP);
+    Instruction instruction = new SubInstruction("f1", ESP, EBP);
+    Instruction instruction2 = new SubInstruction("f1", ESP, EBP);
     Assertions.assertEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality1() {
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
-    Instruction instruction2 = new SubtractInstruction(null,EBX, EAX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
+    Instruction instruction2 = new SubInstruction(null,EBX, EAX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality2() {
-    Instruction instruction = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction(null,EAX, EBX);
     Instruction instruction2 = new AddInstruction(null,EAX, EBX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 
   @Test
   void testInequality3() {
-    Instruction instruction = new SubtractInstruction("f1",EAX, EBX);
-    Instruction instruction2 = new SubtractInstruction(null,EAX, EBX);
+    Instruction instruction = new SubInstruction("f1",EAX, EBX);
+    Instruction instruction2 = new SubInstruction(null,EAX, EBX);
     Assertions.assertNotEquals(instruction, instruction2);
   }
 

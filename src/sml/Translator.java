@@ -74,25 +74,25 @@ public final class Translator {
                 String s = scan();
                 return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-            case MoveInstruction.OP_CODE -> {
+            case MovInstruction.OP_CODE -> {
                 String r = scan();
                 int v = Integer.parseInt(scan());
-                return new MoveInstruction(label, Register.valueOf(r), v);
+                return new MovInstruction(label, Register.valueOf(r), v);
             }
-            case MultiplyInstruction.OP_CODE -> {
+            case MulInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
-                return new MultiplyInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-            case SubtractInstruction.OP_CODE -> {
+            case SubInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
-                return new SubtractInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
-            case DivideInstruction.OP_CODE -> {
+            case DivInstruction.OP_CODE -> {
                 String r = scan();
                 String s = scan();
-                return new DivideInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
             }
             case OutInstruction.OP_CODE -> {
                 String s = scan();
