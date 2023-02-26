@@ -25,7 +25,6 @@ public class DivInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
-
 	/**
 	 * Passes a BinaryOperator that represents an integer division operation
 	 * to the .applyExecution() method of the superclass

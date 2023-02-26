@@ -25,7 +25,6 @@ public class MulInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
-
 	/**
 	 * Passes a BinaryOperator that represents a multiplication operation
 	 * to the .applyExecution() method of the superclass
@@ -39,5 +38,4 @@ public class MulInstruction extends InstructionWithResultAndSource {
 		applyExecution((a, b) -> a * b, machine);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
-
 }

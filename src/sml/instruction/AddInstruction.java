@@ -25,7 +25,6 @@ public class AddInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
-
 	/**
 	 * Passes a BinaryOperator that represents an addition function
 	 * to the .applyExecution() method of the superclass

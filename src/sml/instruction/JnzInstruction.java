@@ -28,7 +28,6 @@ public class JnzInstruction extends Instruction {
 		this.labelToJumpTo = labelToJumpTo;
 	}
 
-
 	/**
 	 * Returns number of the instruction to jump to in the program if the
 	 * source register does not contain a value of 0.
@@ -45,7 +44,6 @@ public class JnzInstruction extends Instruction {
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
 
-
 	/**
 	 * Checks whether an object has equal properties to this JnzInstruction
 	 * @param obj an object
@@ -61,7 +59,6 @@ public class JnzInstruction extends Instruction {
 				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
-
 	/**
 	 * Implements specific hash code methodology for jnz instructions
 	 * @return int
@@ -70,7 +67,6 @@ public class JnzInstruction extends Instruction {
 	public int hashCode() {
 		return Objects.hash(source, getOpcode(), labelToJumpTo, getLabel());
 	}
-
 
 	/**
 	 * Returns a string that represents the instruction. For example:

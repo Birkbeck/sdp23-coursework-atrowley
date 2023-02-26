@@ -29,7 +29,6 @@ public class MovInstruction extends Instruction {
 		this.value = value;
 	}
 
-
 	/**
 	 * Assigns the value indicated in the second operand of the instruction
 	 * to the register indicated in the first operand
@@ -41,7 +40,6 @@ public class MovInstruction extends Instruction {
 		machine.getRegisters().set(result, this.value);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
-
 
 	/**
 	 * Checks whether an object has equal properties to this MovInstruction
@@ -58,7 +56,6 @@ public class MovInstruction extends Instruction {
 				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
-
 	/**
 	 * Implements specific hash code methodology for movInstruction objects
 	 * @return int
@@ -68,7 +65,6 @@ public class MovInstruction extends Instruction {
 		return Objects.hash(getLabel(), getOpcode(), result, value);
 	}
 
-
 	/**
 	 * Returns a string that represents the instruction. For example:
 	 * <br><b>f3 mov EAX 5</b>
@@ -76,6 +72,7 @@ public class MovInstruction extends Instruction {
 	 */
 	@Override
 	public String toString() {
-		return getLabelString() + getOpcode() + " " + result + " " + Integer.toString(this.value);
+		return getLabelString() + getOpcode() + " " + result
+				+ " " + Integer.toString(this.value);
 	}
 }

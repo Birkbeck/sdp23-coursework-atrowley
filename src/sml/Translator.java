@@ -28,7 +28,6 @@ public final class Translator {
         this.fileName =  fileName;
     }
 
-
     // translate the small program in the file into lab (the labels) and
     // prog (the program)
     // return "no errors were detected"
@@ -53,6 +52,10 @@ public final class Translator {
         }
     }
 
+    // TODO: add code for all other types of instructions
+    // TODO: Then, replace the switch by using the Reflection API
+    // TODO: Next, use dependency injection to allow this machine class
+    //       to work with different sets of opcodes (different CPUs)
     /**
      * Translates the current line into an instruction with the given label
      *
@@ -66,50 +69,39 @@ public final class Translator {
         if (line.isEmpty())
             return null;
 
-        // TODO [AR]: fix dependency injection. Code creates new instances of concrete classes
         String opcode = scan();
+        String operand1 = scan();
+        String operand2 = scan();
+
         switch (opcode) {
+
             case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new AddInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
             }
-            case MovInstruction.OP_CODE -> {
-                String r = scan();
-                int v = Integer.parseInt(scan());
-                return new MovInstruction(label, Register.valueOf(r), v);
-            }
+
             case MulInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new MulInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
             }
+
             case SubInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new SubInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
             }
+
             case DivInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
+                return new DivInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
             }
+
+            case MovInstruction.OP_CODE -> {
+                return new MovInstruction(label, Register.valueOf(operand1), Integer.parseInt(operand2));
+            }
+
             case OutInstruction.OP_CODE -> {
-                String s = scan();
-                return new OutInstruction(label, Register.valueOf(s));
+                return new OutInstruction(label, Register.valueOf(operand1));
             }
+
             case JnzInstruction.OP_CODE -> {
-                String s = scan();
-                String labelToJumpTo = scan();
-                return new JnzInstruction(label, Register.valueOf(s), labelToJumpTo);
+                return new JnzInstruction(label, Register.valueOf(operand1), operand2);
             }
-
-            // TODO: add code for all other types of instructions
-
-            // TODO: Then, replace the switch by using the Reflection API
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
 
             default -> {
                 System.out.println("Unknown instruction: " + opcode);
@@ -117,7 +109,6 @@ public final class Translator {
         }
         return null;
     }
-
 
     private String getLabel() {
         String word = scan();

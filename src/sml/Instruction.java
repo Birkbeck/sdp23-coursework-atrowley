@@ -1,23 +1,27 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
-import java.util.Objects;
-
 /**
  * Represents an abstract instruction.
- *
- * @author ...
+ * Includes parameters common to all subclasses (label, opcode, and default
+ * program counter incrementation value). Defines following abstract methods that
+ * must be implemented by instruction subclasses:
+ * <br><br>
+ * execute()<br>
+ * toString()<br>
+ * equals()<br>
+ * hashCode()
+ * @author Original BBK author / updated by Adam Rowley (GitHub username atrowley)
  */
 public abstract class
 Instruction {
+
+	public static int NORMAL_PROGRAM_COUNTER_UPDATE = -1;
 	protected final String label;
 	protected final String opcode;
 
 	/**
 	 * Constructor: an instruction with a label and an opcode
 	 * (opcode must be an operation of the language)
-	 *
 	 * @param label optional label (can be null)
 	 * @param opcode operation name
 	 */
@@ -33,8 +37,6 @@ Instruction {
 	public String getOpcode() {
 		return opcode;
 	}
-
-	public static int NORMAL_PROGRAM_COUNTER_UPDATE = -1;
 
 	/**
 	 * Executes the instruction in the given machine.
@@ -52,10 +54,9 @@ Instruction {
 
 	// TODO: What does abstract in the declaration below mean?
 	//       (Write a short explanation.)
-	/**
-	 * Making the toString() method abstract will ensure that all
-	 * subclasses of Instruction will have to include in implementation of the method
-	 */
+	//Explanation:
+	//Making the toString() method abstract will ensure that all
+	//subclasses of Instruction will have to include in implementation of the method
 	@Override
 	public abstract String toString();
 
