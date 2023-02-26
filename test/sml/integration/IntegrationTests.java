@@ -34,7 +34,7 @@ class IntegrationTests {
    * @param reg
    */
   private void validateInputFileWithExpectedResult(String inputFilePath, int expectedResult, RegisterName reg){
-    translator = new Translator(inputFilePath);
+    translator = new Translator(inputFilePath, new InstructionSetCW());
     try {
       translator.readAndTranslate(machine.getLabels(), machine.getProgram());
       machine.execute();

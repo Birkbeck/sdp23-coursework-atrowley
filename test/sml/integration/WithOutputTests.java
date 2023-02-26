@@ -4,10 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sml.Instruction;
-import sml.Machine;
-import sml.Registers;
-import sml.Translator;
+import sml.*;
 import sml.instruction.OutInstruction;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +34,7 @@ public class WithOutputTests {
 
 
     private void validateConsoleOutput(String testFilePath, String expectedOutput){
-        translator = new Translator(testFilePath);
+        translator = new Translator(testFilePath, new InstructionSetCW());
 
         try {
             translator.readAndTranslate(machine.getLabels(), machine.getProgram());

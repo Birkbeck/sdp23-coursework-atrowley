@@ -21,13 +21,15 @@ import static sml.Registers.Register;
  */
 public final class Translator {
 
+    private final InstructionSetFactory instructionSetFactory;
     private final String fileName; // source file of SML code
 
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
-    public Translator(String fileName) {
+    public Translator(String fileName, InstructionSetFactory instructionSetFactory) {
         this.fileName =  fileName;
+        this.instructionSetFactory = instructionSetFactory;
     }
 
 
@@ -76,27 +78,24 @@ public final class Translator {
     private Instruction getInstruction(String label) {
         if (line.isEmpty()) return null;
 
-        // TODO [AR]: fix dependency injection. Code creates new instances of concrete classes, handle exceptions
+
         String opcode = scan();
+        String operand1 = scan();
+        String operand2 = scan();
 
-        String insClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase()
-                + opcode.substring(1) + "Instruction";
+        return instructionSetFactory.newInstruction(opcode, label, operand1, operand2);
 
-        try {
-            Class<?> insClass = Class.forName(insClassName);
-            Constructor<?> insConstructor = insClass.getConstructor(String.class, String.class, String.class);
-
-            String r = scan();
-            String s = scan();
-
-            return (Instruction) insConstructor.newInstance(label, r, s);
-
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
+//        String insClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase()
+//                + opcode.substring(1) + "Instruction";
+//
+//        try {
+//            Class<?> insClass = Class.forName(insClassName);
+//            Constructor<?> insConstructor = insClass.getConstructor(String.class, String.class, String.class);
+//            return (Instruction) insConstructor.newInstance(label, operand1, operand2);
+//        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
     }
 
 
