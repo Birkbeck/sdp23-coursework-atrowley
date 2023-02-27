@@ -6,6 +6,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sml.*;
 import java.io.IOException;
+import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sml.Registers.Register.*;
 
 class IntegrationTests {
@@ -161,6 +164,53 @@ class IntegrationTests {
   void testMovDiv2() {
     String testFilePath = "test/sml/test-files/mov-div-only2.sml";
     validateInputFileWithExpectedResult(testFilePath, 10, EAX);
+  }
+
+  /**
+   * Attempts to run a program where jump instruction
+   * tries to jump to a non-existing label.
+   *
+   *     mov EAX 2
+   *     mov EBX 1
+   * f1: sub EAX EBX
+   *     jnz EAX f2
+   *     out EAX
+   */
+  @Test
+  void labelNotFoundTest() {
+    String testFilePath = "test/sml/test-files/label-not-found-test.sml";
+    translator = new Translator(testFilePath);
+
+    RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
+        translator.readAndTranslate(machine.getLabels(), machine.getProgram());
+        machine.execute();
+    });
+
+    Assertions.assertEquals("Label not found: f2", exc.getMessage());
+
+  }
+
+  /**
+   * Attempts to run a program that contains a duplicate label
+   *
+   *     mov EAX 2
+   * f1: mov EBX 1
+   * f1: sub EAX EBX
+   *     jnz EAX f1
+   *     out EAX
+   */
+  @Test
+  void labelDuplicatedTest() {
+    String testFilePath = "test/sml/test-files/label-duplicated-test.sml";
+    translator = new Translator(testFilePath);
+
+    RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
+      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
+      machine.execute();
+    });
+
+    Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
+
   }
 
 
