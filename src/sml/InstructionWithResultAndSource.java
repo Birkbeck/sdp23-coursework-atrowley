@@ -28,6 +28,21 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 	}
 
 	/**
+	 * This constructor uses strings only. The same is implemented on all instruction classes so that
+	 * there is a common constructor signature that can be referred to using reflection within the
+	 * Translator class
+	 * @param label the label (if applicable)
+	 * @param result the name of the result register
+	 * @param source the name of the source register
+	 * @param OP_CODE the opcode
+	 */
+	public InstructionWithResultAndSource(String label, String result, String source, String OP_CODE) {
+		super(label, OP_CODE);
+		this.result = Registers.Register.valueOf(result);
+		this.source = Registers.Register.valueOf(source);
+	}
+
+	/**
 	 * Method that can be called by a subclass in order to apply the subclass
 	 * operation implemented within the execute() method to the result and source registers.
 	 * <br><br>

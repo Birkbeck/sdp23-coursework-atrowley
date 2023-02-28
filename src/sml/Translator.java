@@ -3,6 +3,8 @@ package sml;
 import sml.instruction.*;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
@@ -57,7 +59,7 @@ public final class Translator {
     //  [COMPLETED]
 
     // TODO: Then, replace the switch by using the Reflection API
-    //  [STILL TO DO]
+    //  [COMPLETED]
 
     // TODO: Next, use dependency injection to allow this machine class
     //       to work with different sets of opcodes (different CPUs)
@@ -76,43 +78,24 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        String operand1 = scan();
-        String operand2 = scan();
 
-        switch (opcode) {
+        String insClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase()
+                + opcode.substring(1) + "Instruction";
 
-            case AddInstruction.OP_CODE -> {
-                return new AddInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
-            }
+        try {
+            Class<?> insClass = Class.forName(insClassName);
+            Constructor<?> insConstructor = insClass.getConstructor(String.class, String.class, String.class);
 
-            case MulInstruction.OP_CODE -> {
-                return new MulInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
-            }
+            String operand1 = scan();
+            String operand2 = scan();
 
-            case SubInstruction.OP_CODE -> {
-                return new SubInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
-            }
+            return (Instruction) insConstructor.newInstance(label, operand1, operand2);
 
-            case DivInstruction.OP_CODE -> {
-                return new DivInstruction(label, Register.valueOf(operand1), Register.valueOf(operand2));
-            }
-
-            case MovInstruction.OP_CODE -> {
-                return new MovInstruction(label, Register.valueOf(operand1), Integer.parseInt(operand2));
-            }
-
-            case OutInstruction.OP_CODE -> {
-                return new OutInstruction(label, Register.valueOf(operand1));
-            }
-
-            case JnzInstruction.OP_CODE -> {
-                return new JnzInstruction(label, Register.valueOf(operand1), operand2);
-            }
-
-            default -> {
-                System.out.println("Unknown instruction: " + opcode);
-            }
+        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
+                | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 

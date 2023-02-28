@@ -26,6 +26,11 @@ public class SubInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
+	// Used for reflection
+	public SubInstruction(String label, String result, String source) {
+		super(label, result, source, OP_CODE);
+	}
+
 	/**
 	 * Passes a BinaryOperator that represents a subtraction operation
 	 * to the .applyExecution() method of the superclass

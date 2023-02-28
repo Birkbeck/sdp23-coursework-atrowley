@@ -3,6 +3,8 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers;
+
 import java.util.Objects;
 
 /**
@@ -25,6 +27,13 @@ public class JnzInstruction extends Instruction {
 	public JnzInstruction(String label, RegisterName source, String labelToJumpTo) {
 		super(label, OP_CODE);
 		this.source = source;
+		this.labelToJumpTo = labelToJumpTo;
+	}
+
+	// Used for reflection
+	public JnzInstruction(String label, String source, String labelToJumpTo) {
+		super(label, OP_CODE);
+		this.source = Registers.Register.valueOf(source);
 		this.labelToJumpTo = labelToJumpTo;
 	}
 

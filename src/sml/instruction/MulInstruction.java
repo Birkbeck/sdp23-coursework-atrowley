@@ -25,6 +25,11 @@ public class MulInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
+	// Used for reflection
+	public MulInstruction(String label, String result, String source) {
+		super(label, result, source, OP_CODE);
+	}
+
 	/**
 	 * Passes a BinaryOperator that represents a multiplication operation
 	 * to the .applyExecution() method of the superclass

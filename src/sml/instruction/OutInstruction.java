@@ -3,6 +3,8 @@ package sml.instruction;
 import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers;
+
 import java.util.Objects;
 
 /**
@@ -26,6 +28,12 @@ public class OutInstruction extends Instruction {
 	public OutInstruction(String label, RegisterName source) {
 		super(label, OP_CODE);
 		this.source = source;
+	}
+
+	// Used for reflection
+	public OutInstruction(String label, String source, String empty) {
+		super(label, OP_CODE);
+		this.source = Registers.Register.valueOf(source);
 	}
 
 	/**
