@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sml.InstructionSetCW;
 import sml.Machine;
 import sml.Registers;
 import sml.Translator;
@@ -41,7 +42,7 @@ public class WithConsoleOutputTests {
      * @param expectedOutput expected result of the register passed to param "reg"
      */
     private void validateConsoleOutput(String testFilePath, String expectedOutput){
-        translator = new Translator(testFilePath);
+        translator = new Translator(testFilePath, new InstructionSetCW());
 
         try {
             translator.readAndTranslate(machine.getLabels(), machine.getProgram());
@@ -58,7 +59,6 @@ public class WithConsoleOutputTests {
         }
     }
 
-
     /**
      * mov EAX 500
      * out EAX
@@ -68,7 +68,6 @@ public class WithConsoleOutputTests {
         String testFilePath = "test/sml/test-files/mov-out-only.sml";
         validateConsoleOutput(testFilePath, "500");
     }
-
 
     /**
      * f1: mov EAX 2
@@ -111,7 +110,6 @@ public class WithConsoleOutputTests {
         validateConsoleOutput(testFilePath, "1320");
     }
 
-
     /**
      *     mov EAX 6
      *     mov EBX 1
@@ -126,7 +124,6 @@ public class WithConsoleOutputTests {
         String testFilePath = "test/sml/test-files/test2.sml";
         validateConsoleOutput(testFilePath, "720");
     }
-
 
     /**
      * Tests add, sub, mul, and div.
@@ -148,6 +145,4 @@ public class WithConsoleOutputTests {
         String testFilePath = "test/sml/test-files/test3-add-sub-mul-div.sml";
         validateConsoleOutput(testFilePath, "74");
     }
-
-
 }

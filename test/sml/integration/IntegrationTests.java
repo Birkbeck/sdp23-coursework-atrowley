@@ -41,7 +41,7 @@ class IntegrationTests {
    * @param reg register with value that should match that of the expected result
    */
   private void validateInputFileWithExpectedResult(String inputFilePath, int expectedResult, RegisterName reg){
-    translator = new Translator(inputFilePath);
+    translator = new Translator(inputFilePath, new InstructionSetCW());
     try {
       translator.readAndTranslate(machine.getLabels(), machine.getProgram());
       machine.execute();
@@ -183,7 +183,7 @@ class IntegrationTests {
   @Test
   void labelNotFoundTest() {
     String testFilePath = "test/sml/test-files/label-not-found-test.sml";
-    translator = new Translator(testFilePath);
+    translator = new Translator(testFilePath, new InstructionSetCW());
 
     RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
         translator.readAndTranslate(machine.getLabels(), machine.getProgram());
@@ -206,7 +206,7 @@ class IntegrationTests {
   @Test
   void labelDuplicatedTest() {
     String testFilePath = "test/sml/test-files/label-duplicated-test.sml";
-    translator = new Translator(testFilePath);
+    translator = new Translator(testFilePath, new InstructionSetCW());
 
     RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
       translator.readAndTranslate(machine.getLabels(), machine.getProgram());
@@ -216,7 +216,6 @@ class IntegrationTests {
     Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
 
   }
-
 
 }
 
