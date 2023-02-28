@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+// TODO: write a JavaDoc for the class
+//  [COMPLETED]
 /**
  * Class that holds the label map that is used by the Machine class
  * and written to by the Translation class.
@@ -31,6 +33,7 @@ public final class Labels {
 	public void addLabel(String label, int address) {
 		Objects.requireNonNull(label);
 		// TODO: Add a check that there are no label duplicates.
+		//  [COMPLETED]
 		if (labels.containsKey(label)) {
 			throw new RuntimeException("Duplicate label occurrence: "+label);
 		} else {
@@ -51,6 +54,7 @@ public final class Labels {
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
 		//       Add code to deal with non-existent labels.
+		//       [COMPLETED]
 		// Explanation: a null pointer could occur if an attempt
 		// is made to get a label that doesn't exist in the hashmap.
 		// For example, this could happen if a jump instruction indicates
@@ -79,6 +83,7 @@ public final class Labels {
 	@Override
 	public String toString() {
 		// TODO: Implement the method using the Stream API (see also class Registers).
+		//  [COMPLETED]
 		String labelMapString = labels.entrySet().stream()
 				.map(e -> e.getKey()+ " -> " +e.getValue())
 				.collect(Collectors.joining(", "));
@@ -87,6 +92,7 @@ public final class Labels {
 	}
 
 	// TODO: Implement equals and hashCode (needed in class Machine).
+	//  [COMPLETED]
 	/**
 	 * Checks whether an object has equal properties to this Label class
 	 * @param obj an object

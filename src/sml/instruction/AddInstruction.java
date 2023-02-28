@@ -3,6 +3,8 @@ import sml.InstructionWithResultAndSource;
 import sml.Machine;
 import sml.RegisterName;
 
+// TODO: write a JavaDoc for the class
+//  [COMPLETED]
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
  * a source register and result register.

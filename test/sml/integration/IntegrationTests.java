@@ -11,6 +11,10 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sml.Registers.Register.*;
 
+/**
+ * This class contains tests that validate whether a stated register contains the
+ * expected result after executing a test sml file
+ */
 class IntegrationTests {
 
   private Machine machine;
@@ -32,9 +36,9 @@ class IntegrationTests {
 
   /**
    * This is a helper method for the below tests
-   * @param inputFilePath
-   * @param expectedResult
-   * @param reg
+   * @param inputFilePath filepath of the test sml file
+   * @param expectedResult expected result of the register passed to param "reg"
+   * @param reg register with value that should match that of the expected result
    */
   private void validateInputFileWithExpectedResult(String inputFilePath, int expectedResult, RegisterName reg){
     translator = new Translator(inputFilePath);

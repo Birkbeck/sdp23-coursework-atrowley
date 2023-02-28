@@ -4,19 +4,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 import sml.Translator;
-import sml.instruction.OutInstruction;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static sml.Registers.Register.EBX;
-
-public class WithOutputTests {
+/**
+ * This class contains tests that validate whether the final console output
+ * matches the expected output after executing a test sml file
+ */
+public class WithConsoleOutputTests {
 
     private Machine machine;
     private Registers registers;
@@ -35,7 +35,11 @@ public class WithOutputTests {
         translator = null;
     }
 
-
+    /**
+     * This is a helper method for the below tests
+     * @param testFilePath filepath of the test sml file
+     * @param expectedOutput expected result of the register passed to param "reg"
+     */
     private void validateConsoleOutput(String testFilePath, String expectedOutput){
         translator = new Translator(testFilePath);
 
@@ -91,7 +95,7 @@ public class WithOutputTests {
     @Test
     void testJnz2() {
         String testFilePath = "test/sml/test-files/jnz-test2.sml";
-        validateConsoleOutput(testFilePath, "720");
+        validateConsoleOutput(testFilePath, "5040");
     }
 
     /**
@@ -102,9 +106,47 @@ public class WithOutputTests {
      * out EAX
      */
     @Test
-    void testInputFile() {
+    void testInputFile1() {
         String testFilePath = "test/sml/test-files/test1.sml";
         validateConsoleOutput(testFilePath, "1320");
+    }
+
+
+    /**
+     *     mov EAX 6
+     *     mov EBX 1
+     *     mov ECX 1
+     * f3: mul EBX EAX
+     *     sub EAX ECX
+     *     jnz EAX f3
+     *     out EBX
+     */
+    @Test
+    void testInputFile2() {
+        String testFilePath = "test/sml/test-files/test2.sml";
+        validateConsoleOutput(testFilePath, "720");
+    }
+
+
+    /**
+     * Tests add, sub, mul, and div.
+     * Expected result = 74
+     *
+     * L1: mov EAX 22
+     *     mov EBX 150
+     *     mov ECX 24
+     *     mov EDX 2
+     *     mov ESP 4
+     *     add EAX EBX
+     *     sub EAX ECX
+     *     mul EAX EDX
+     *     div EAX ESP
+     *     out EAX
+     */
+    @Test
+    void testInputFile3() {
+        String testFilePath = "test/sml/test-files/test3-add-sub-mul-div.sml";
+        validateConsoleOutput(testFilePath, "74");
     }
 
 

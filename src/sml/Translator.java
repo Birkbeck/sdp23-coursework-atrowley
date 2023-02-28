@@ -1,13 +1,11 @@
 package sml;
 
 import sml.instruction.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
-
 import static sml.Registers.Register;
 
 /**
@@ -56,9 +54,14 @@ public final class Translator {
     }
 
     // TODO: add code for all other types of instructions
+    //  [COMPLETED]
+
     // TODO: Then, replace the switch by using the Reflection API
+    //  [STILL TO DO]
+
     // TODO: Next, use dependency injection to allow this machine class
     //       to work with different sets of opcodes (different CPUs)
+    //       [STILL TO DO]
     /**
      * Translates the current line into an instruction with the given label
      *

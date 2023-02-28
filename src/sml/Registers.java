@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO: write a JavaDoc for the class
+//  [COMPLETED]
 /**
  * This class contains a registers Hashmap that stores each register name (key) and the
  * respective integer value. Register names will be set in accordance with enum Register,
@@ -51,6 +52,7 @@ public final class Registers {
     }
 
     // TODO: use pattern matching for instanceof
+    //  [COMPLETED]
     // https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
     @Override
     public boolean equals(Object o) {

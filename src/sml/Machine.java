@@ -68,6 +68,7 @@ public final class Machine {
 	}
 
 	// TODO: use pattern matching for instanceof
+	//  [COMPLETED]
 	// https://docs.oracle.com/en/java/javase/14/language/pattern-matching-instanceof-operator.html
 	@Override
 	public boolean equals(Object o) {
