@@ -59,7 +59,8 @@ public class OutInstruction extends Instruction {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getLabel(), getOpcode(), source);
+		final int PRIME = 41;
+		return PRIME + Objects.hash(getLabel(), getOpcode(), source);
 	}
 
 	/**

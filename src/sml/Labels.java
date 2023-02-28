@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * The value is the numerical address of the instruction that the label
  * refers to, i.e. the index position of the respective instruction in
  * the program ArrayList.
- * @author BBK staff (code)
+ * @author BBK staff member (code)
  * @author Adam Rowley (javadocs only)
  */
 public final class Labels {

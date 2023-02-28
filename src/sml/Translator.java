@@ -11,11 +11,14 @@ import java.util.Scanner;
 import static sml.Registers.Register;
 
 /**
- * This class ....
+ * This class reads a set of sml instructions from a file and creates a respective
+ * instruction class for each line of instruction which is then added to the program
+ * ArrayList. It also stores any instruction labels in a Labels HashMap along with
+ * their respective address within the program (program ArrayList index).
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author BBK staff member / Adam Rowley (GitHub username atrowley)
  */
 public final class Translator {
 

@@ -82,6 +82,7 @@ public final class Machine {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(labels, program, registers, programCounter);
+		final int PRIME = 41;
+		return PRIME + Objects.hash(labels, program, registers, programCounter);
 	}
 }

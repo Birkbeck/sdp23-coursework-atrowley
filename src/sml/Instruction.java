@@ -10,7 +10,7 @@ package sml;
  * toString()<br>
  * equals()<br>
  * hashCode()
- * @author Original BBK author / updated by Adam Rowley (GitHub username atrowley)
+ * @author BBK staff member / updated by Adam Rowley (GitHub username atrowley)
  */
 public abstract class
 Instruction {

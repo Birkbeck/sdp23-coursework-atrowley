@@ -4,12 +4,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO: write a JavaDoc for the class
-
 /**
- *
- * @author ...
+ * This class contains a registers Hashmap that stores each register name (key) and the
+ * respective integer value. Register names will be set in accordance with enum Register,
+ * and all values set to zero on instancing the class.
+ * @author BBK staff member
  */
 public final class Registers {
+
     private final Map<Register, Integer> registers = new HashMap<>();
 
     public enum Register implements RegisterName {

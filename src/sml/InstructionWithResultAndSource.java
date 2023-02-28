@@ -77,7 +77,8 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getLabel(), getOpcode(), result, source);
+		final int PRIME = 41;
+		return PRIME + Objects.hash(getLabel(), getOpcode(), result, source);
 	}
 
 	/**

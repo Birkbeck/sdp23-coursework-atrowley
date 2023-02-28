@@ -65,7 +65,8 @@ public class JnzInstruction extends Instruction {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(source, getOpcode(), labelToJumpTo, getLabel());
+		final int PRIME = 41;
+		return PRIME +Objects.hash(source, getOpcode(), labelToJumpTo, getLabel());
 	}
 
 	/**

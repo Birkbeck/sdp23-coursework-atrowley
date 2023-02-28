@@ -62,7 +62,8 @@ public class MovInstruction extends Instruction {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(getLabel(), getOpcode(), result, value);
+		final int PRIME = 41;
+		return PRIME +Objects.hash(getLabel(), getOpcode(), result, value);
 	}
 
 	/**
