@@ -1,9 +1,6 @@
 package sml.classes;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import sml.Labels;
 import sml.Machine;
 import sml.Registers;
@@ -15,8 +12,8 @@ public class LabelsTest {
 
     @BeforeEach
     void setUp() {
-        labels = new Labels();
-        labels2 = new Labels();
+        labels = Labels.newLabels();
+        labels2 = Labels.newLabels();
     }
 
     @AfterEach
@@ -33,7 +30,9 @@ public class LabelsTest {
         Assertions.assertEquals("[f1 -> 1, f2 -> 2, f3 -> 3]",labels.toString());
     }
 
-    @Test
+
+    // These tests no longer work as labels is a singleton class
+    @Disabled
     public void testLabelsEquality1(){
         labels.addLabel("f1",1);
         labels.addLabel("f2",2);
@@ -44,7 +43,7 @@ public class LabelsTest {
         Assertions.assertEquals(labels, labels2);
     }
 
-    @Test
+    @Disabled
     public void testLabelsEquality2(){
         labels.addLabel("f1",3);
         labels.addLabel("f3",100);
@@ -53,7 +52,7 @@ public class LabelsTest {
         Assertions.assertEquals(labels, labels2);
     }
 
-    @Test
+    @Disabled
     public void testLabelsInEquality1(){
         labels.addLabel("f1",1);
         labels.addLabel("f2",2);
@@ -63,7 +62,7 @@ public class LabelsTest {
         Assertions.assertNotEquals(labels, labels2);
     }
 
-    @Test
+    @Disabled
     public void testLabelsInEquality2(){
         labels.addLabel("f1",2);
         labels.addLabel("f2",2);

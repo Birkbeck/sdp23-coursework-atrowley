@@ -30,7 +30,7 @@ public class JnzInstruction extends Instruction {
 		this.labelToJumpTo = labelToJumpTo;
 	}
 
-	// Used for reflection
+	//Used for reflection
 	public JnzInstruction(String label, String source, String labelToJumpTo) {
 		super(label, OP_CODE);
 		this.source = Registers.Register.valueOf(source);

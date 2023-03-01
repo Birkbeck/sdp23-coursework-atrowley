@@ -19,7 +19,7 @@ public class Main {
 
 		try {
 			Translator t = new Translator(args[0], new InstructionSetCW());
-			Machine m = new Machine(new Registers());
+			Machine m = Machine.newMachine(Registers.newRegisters());
 			t.readAndTranslate(m.getLabels(), m.getProgram());
 
 			System.out.println("Here is the program; it has " + m.getProgram().size() + " instructions.");

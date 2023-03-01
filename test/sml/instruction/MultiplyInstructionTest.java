@@ -17,7 +17,7 @@ class MultiplyInstructionTest {
 
   @BeforeEach
   void setUp() {
-    machine = new Machine(new Registers());
+    machine = Machine.newMachine(Registers.newRegisters());
     registers = machine.getRegisters();
   }
 

@@ -14,7 +14,8 @@ import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
  */
 public final class Machine {
 
-	private final Labels labels = new Labels();
+	private static Machine machineInstance = null;
+	private final Labels labels = Labels.newLabels();
 	private final List<Instruction> program = new ArrayList<>();
 	private final Registers registers;
 
@@ -22,8 +23,15 @@ public final class Machine {
 	// of the next instruction to be executed.
 	private int programCounter = 0;
 
-	public Machine(Registers registers) {
+	private Machine(Registers registers) {
 		this.registers = registers;
+	}
+
+	public static Machine newMachine(Registers register){
+		if(machineInstance == null){
+			machineInstance = new Machine(register);
+		}
+		return machineInstance;
 	}
 
 	/**

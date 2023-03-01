@@ -13,14 +13,22 @@ import java.util.stream.Collectors;
  */
 public final class Registers {
 
+    private static Registers registersInstance = null;
     private final Map<Register, Integer> registers = new HashMap<>();
 
     public enum Register implements RegisterName {
         EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
     }
 
-    public Registers() {
+    private  Registers() {
         clear(); // the class is final
+    }
+
+    public static synchronized Registers newRegisters(){
+        if (registersInstance == null){
+            registersInstance = new Registers();
+        }
+        return registersInstance;
     }
 
     /**

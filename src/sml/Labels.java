@@ -20,7 +20,18 @@ import java.util.stream.Collectors;
  * @author Adam Rowley (javadocs only)
  */
 public final class Labels {
+
+	private static Labels labelsInstance = null;
 	private final Map<String, Integer> labels = new HashMap<>();
+
+	private Labels(){}
+
+	public static Labels newLabels(){
+		if(labelsInstance == null){
+			labelsInstance = new Labels();
+		}
+		return labelsInstance;
+	}
 
 	/**
 	 * Adds a label with the associated address to the map.<br>
