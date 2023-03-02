@@ -18,7 +18,7 @@ public class Main {
 		}
 
 		try {
-			Translator t = new Translator(args[0], new InstructionSetCW());
+			Translator t = new Translator(args[0]);
 			Machine m = Machine.newMachine(Registers.newRegisters());
 			t.readAndTranslate(m.getLabels(), m.getProgram());
 

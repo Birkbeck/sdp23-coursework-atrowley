@@ -42,7 +42,7 @@ public class WithConsoleOutputTests {
      * @param expectedOutput expected result of the register passed to param "reg"
      */
     private void validateConsoleOutput(String testFilePath, String expectedOutput){
-        translator = new Translator(testFilePath, new InstructionSetCW());
+        translator = new Translator(testFilePath);
 
         try {
             translator.readAndTranslate(machine.getLabels(), machine.getProgram());

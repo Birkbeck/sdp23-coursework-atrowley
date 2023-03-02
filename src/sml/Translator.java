@@ -1,14 +1,14 @@
 package sml;
 
-import sml.instruction.*;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
-import static sml.Registers.Register;
+
 
 /**
  * This class reads a set of sml instructions from a file and creates a respective
@@ -22,15 +22,31 @@ import static sml.Registers.Register;
  */
 public final class Translator {
 
-    private final InstructionSetFactory instructionSetFactory;
+    private InstructionSetFactory instructionSetFactory;
     private final String fileName; // source file of SML code
 
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
-    public Translator(String fileName, InstructionSetFactory instructionSetFactory) {
+    public Translator(String fileName) {
         this.fileName =  fileName;
-        this.instructionSetFactory = instructionSetFactory;
+
+        try {
+            Properties props = new Properties();
+            try (var fis = Translator.class.getResourceAsStream("/beans.properties")){
+                props.load(fis);
+            }
+
+            String instructionSetFactoryName = props.getProperty("instructionSetFactory.class");
+            Class<?> instructionSetFactoryClass = Class.forName(instructionSetFactoryName);
+            Constructor<?> constructor = instructionSetFactoryClass.getDeclaredConstructor();
+            this.instructionSetFactory = (InstructionSetFactory) constructor.newInstance();
+
+        } catch (IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
+                 InstantiationException | IllegalAccessException exc) {
+            exc.printStackTrace();
+        }
+
     }
 
     // translate the small program in the file into lab (the labels) and
@@ -85,6 +101,7 @@ public final class Translator {
 
         return instructionSetFactory.newInstruction(opcode, label, operand1, operand2);
     }
+
 
     private String getLabel() {
         String word = scan();
