@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
@@ -22,7 +24,7 @@ import java.util.Scanner;
  */
 public final class Translator {
 
-    private InstructionSetFactory instructionSetFactory;
+    private final InstructionSetFactory instructionSetFactory;
     private final String fileName; // source file of SML code
 
     // line contains the characters in the current line that's not been processed yet
@@ -31,22 +33,8 @@ public final class Translator {
     public Translator(String fileName) {
         this.fileName =  fileName;
 
-        try {
-            Properties props = new Properties();
-            try (var fis = Translator.class.getResourceAsStream("/beans.properties")){
-                props.load(fis);
-            }
-
-            String instructionSetFactoryName = props.getProperty("instructionSetFactory.class");
-            Class<?> instructionSetFactoryClass = Class.forName(instructionSetFactoryName);
-            Constructor<?> constructor = instructionSetFactoryClass.getDeclaredConstructor();
-            this.instructionSetFactory = (InstructionSetFactory) constructor.newInstance();
-
-        } catch (IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
-                 InstantiationException | IllegalAccessException exc) {
-            exc.printStackTrace();
-        }
-
+        BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
+        this.instructionSetFactory = (InstructionSetFactory)  factory.getBean("instructionSetFactory");
     }
 
     // translate the small program in the file into lab (the labels) and
