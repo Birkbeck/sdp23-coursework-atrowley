@@ -31,7 +31,12 @@ public class MovInstruction extends Instruction {
 		this.value = value;
 	}
 
-	// Used for reflection
+	/**
+	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
+	 * @param label the instruction label
+	 * @param result the name of the result register
+	 * @param value the value to move to the register
+	 */
 	public MovInstruction(String label, String result, String value) {
 		super(label, OP_CODE);
 		this.result = Registers.Register.valueOf(result);

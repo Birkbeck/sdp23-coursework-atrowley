@@ -29,8 +29,8 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 
 	/**
 	 * This constructor uses strings only. The same is implemented on all instruction classes so that
-	 * there is a common constructor signature that can be referred to using reflection within the
-	 * Translator class
+	 * there is a common constructor signature that can be referred to using reflection within an
+	 * InstructionSetFactory implementation
 	 * @param label the label (if applicable)
 	 * @param result the name of the result register
 	 * @param source the name of the source register

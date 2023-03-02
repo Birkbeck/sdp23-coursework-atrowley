@@ -1,17 +1,17 @@
 package sml.instruction;
+
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
-//  [COMPLETED]
+// TODO: write a JavaDoc for the class [COMPLETED]
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
  * a source register and result register.
- *
+ * <br><br>
  * Overrides the execute method to pass a BinaryOperator that represents an addition
  * operation to the superclass method applyExecution().
- *
+ * <br><br>
  * The superclass handles all common functionality of instructions that take both
  * a result and source register as an operand. This class handles specific functionality
  * relating to the addition operation.
@@ -27,11 +27,15 @@ public class AddInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
+	/**
+	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
+	 * @param label the instruction label
+	 * @param result the name of the result register
+	 * @param source the name of the source register
+	 */
 	public AddInstruction(String label, String result, String source) {
 		super(label, result, source, OP_CODE);
 	}
-
-
 
 	/**
 	 * Passes a BinaryOperator that represents an addition function

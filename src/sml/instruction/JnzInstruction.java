@@ -4,14 +4,13 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers;
-
 import java.util.Objects;
 
 /**
  * Instruction subclass that controls the flow of the program by implementing
  * a jump to a specific location in the program (denoted by a label) if the
  * indicated source register does not contain the value 0
- *
+ * <p>
  * The superclass handles all common functionality of instructions. This class
  * handles specific functionality relating to the "jump" operation.
  *
@@ -30,7 +29,12 @@ public class JnzInstruction extends Instruction {
 		this.labelToJumpTo = labelToJumpTo;
 	}
 
-	//Used for reflection
+	/**
+	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
+	 * @param label the instruction label
+	 * @param source the name of the source register
+	 * @param labelToJumpTo the name of the label to jump to
+	 */
 	public JnzInstruction(String label, String source, String labelToJumpTo) {
 		super(label, OP_CODE);
 		this.source = Registers.Register.valueOf(source);

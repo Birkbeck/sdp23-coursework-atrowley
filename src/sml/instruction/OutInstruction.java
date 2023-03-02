@@ -4,7 +4,6 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers;
-
 import java.util.Objects;
 
 /**
@@ -30,7 +29,12 @@ public class OutInstruction extends Instruction {
 		this.source = source;
 	}
 
-	// Used for reflection
+	/**
+	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
+	 * @param label the instruction label
+	 * @param source the name of the source register
+	 * @param empty will be null as OutInstructions have no second operand
+	 */
 	public OutInstruction(String label, String source, String empty) {
 		super(label, OP_CODE);
 		this.source = Registers.Register.valueOf(source);

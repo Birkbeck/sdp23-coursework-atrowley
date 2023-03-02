@@ -1,15 +1,12 @@
 package sml;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Properties;
-import java.util.Scanner;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Scanner;
 
 
 /**
@@ -30,6 +27,10 @@ public final class Translator {
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
+    /**
+     * Uses a Springframework BeanFactory for injection of respective InstructionSetFactory implementation
+     * @param fileName filepath of the sml file to run
+     */
     public Translator(String fileName) {
         this.fileName =  fileName;
 
@@ -61,15 +62,10 @@ public final class Translator {
         }
     }
 
-    // TODO: add code for all other types of instructions
-    //  [COMPLETED]
-
-    // TODO: Then, replace the switch by using the Reflection API
-    //  [COMPLETED]
-
+    // TODO: add code for all other types of instructions [COMPLETED]
+    // TODO: Then, replace the switch by using the Reflection API [COMPLETED]
     // TODO: Next, use dependency injection to allow this machine class
-    //       to work with different sets of opcodes (different CPUs)
-    //       [COMPLETED]
+    //       to work with different sets of opcodes (different CPUs) [COMPLETED]
     /**
      * Translates the current line into an instruction with the given label
      *
@@ -90,7 +86,10 @@ public final class Translator {
         return instructionSetFactory.newInstruction(opcode, label, operand1, operand2);
     }
 
-
+    /**
+     * Gets the label for the instruction line if it has one
+     * @return label name or null if there is no label
+     */
     private String getLabel() {
         String word = scan();
         if (word.endsWith(":"))

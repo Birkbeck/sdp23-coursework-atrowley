@@ -6,8 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// TODO: write a JavaDoc for the class
-//  [COMPLETED]
+// TODO: write a JavaDoc for the class [COMPLETED]
 /**
  * Class that holds the label map that is used by the Machine class
  * and written to by the Translation class.

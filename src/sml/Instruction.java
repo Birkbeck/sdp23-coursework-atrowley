@@ -2,7 +2,6 @@ package sml;
 
 // TODO: write a JavaDoc for the class
 //  [COMPLETED]
-
 /**
  * Represents an abstract instruction.
  * Includes parameters common to all subclasses (label, opcode, and default
@@ -56,16 +55,14 @@ Instruction {
 	}
 
 	// TODO: What does abstract in the declaration below mean?
-	//       (Write a short explanation.)
-	//       [COMPLETED]
+	//       (Write a short explanation.) [COMPLETED]
 	//Explanation:
 	//Making the toString() method abstract will ensure that all
 	//subclasses of Instruction will have to include in implementation of the method
 	@Override
 	public abstract String toString();
 
-	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
-	//  [COMPLETED]
+	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine). [COMPLETED]
 	@Override
 	public abstract boolean equals(Object obj);
 

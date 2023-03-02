@@ -97,11 +97,11 @@ class IntegrationTests {
 
   /**
    * Expected result: EAX = 300
+   *
    * mov EAX 5
    * mov EBX 10
    * mov ECX 6
    * mul EAX EBX
-   *
    * mul EAX ECX
    */
   @Test
@@ -110,9 +110,9 @@ class IntegrationTests {
     validateInputFileWithExpectedResult(testFilePath, 300, EAX);
   }
 
-
   /**
    * Expected result: EAX = 15
+   *
    * mov EAX 24
    * mov EBX 9
    * sub EAX EBX
@@ -122,7 +122,6 @@ class IntegrationTests {
     String testFilePath = "test/sml/test-files/mov-sub-only1.sml";
     validateInputFileWithExpectedResult(testFilePath, 15, EAX);
   }
-
 
   /**
    * Expected result: ESP = 20
@@ -141,9 +140,9 @@ class IntegrationTests {
     validateInputFileWithExpectedResult(testFilePath, 20, ESP);
   }
 
-
   /**
    * Expected result: EAX = 4
+   *
    * mov EAX 8
    * mov EBX 2
    * div EAX EBX
@@ -156,6 +155,7 @@ class IntegrationTests {
 
   /**
    * Expected result: EAX = 10
+   *
    * mov EAX 120
    * mov EBX 4
    * div EAX EBX
@@ -189,9 +189,7 @@ class IntegrationTests {
         translator.readAndTranslate(machine.getLabels(), machine.getProgram());
         machine.execute();
     });
-
     Assertions.assertEquals("Label not found: f2", exc.getMessage());
-
   }
 
   /**
@@ -212,9 +210,7 @@ class IntegrationTests {
       translator.readAndTranslate(machine.getLabels(), machine.getProgram());
       machine.execute();
     });
-
     Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
-
   }
 
 }

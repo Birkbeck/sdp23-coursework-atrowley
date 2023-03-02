@@ -2,9 +2,10 @@ package sml.classes;
 
 import org.junit.jupiter.api.*;
 import sml.Labels;
-import sml.Machine;
-import sml.Registers;
 
+/**
+ * This class contains tests that relate to the Labels class
+ */
 public class LabelsTest {
 
     Labels labels;
@@ -22,6 +23,9 @@ public class LabelsTest {
         labels2 = null;
     }
 
+    /**
+     * Tests the toString method
+     */
     @Test
     public void testLabelsToString(){
         labels.addLabel("f1",1);
@@ -31,7 +35,7 @@ public class LabelsTest {
     }
 
 
-    // These tests no longer work as labels is a singleton class
+    // Test disabled as Labels converted to a singleton class
     @Disabled
     public void testLabelsEquality1(){
         labels.addLabel("f1",1);
@@ -43,6 +47,7 @@ public class LabelsTest {
         Assertions.assertEquals(labels, labels2);
     }
 
+    // Test disabled as Labels converted to a singleton class
     @Disabled
     public void testLabelsEquality2(){
         labels.addLabel("f1",3);
@@ -52,6 +57,7 @@ public class LabelsTest {
         Assertions.assertEquals(labels, labels2);
     }
 
+    // Test disabled as Labels converted to a singleton class
     @Disabled
     public void testLabelsInEquality1(){
         labels.addLabel("f1",1);
@@ -62,6 +68,7 @@ public class LabelsTest {
         Assertions.assertNotEquals(labels, labels2);
     }
 
+    // Test disabled as Labels converted to a singleton class
     @Disabled
     public void testLabelsInEquality2(){
         labels.addLabel("f1",2);

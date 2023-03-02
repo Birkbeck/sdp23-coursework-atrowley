@@ -6,10 +6,10 @@ import sml.RegisterName;
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
  * a source register and result register.
- *
+ * <p>
  * Overrides the execute method to pass a BinaryOperator that represents a multiplication
  * operation to the superclass method applyExecution().
- *
+ * <p>
  * The superclass handles all common functionality of instructions that take both
  * a result and source register as an operand. This class handles specific functionality
  * relating to the addition operation.
@@ -25,7 +25,12 @@ public class MulInstruction extends InstructionWithResultAndSource {
 		super(label, result, source, OP_CODE);
 	}
 
-	// Used for reflection
+	/**
+	 * Constructor that is accessed by the InstructionSetFactory via reflection
+	 * @param label the instruction label
+	 * @param result the name of the result register
+	 * @param source the name of the source register
+	 */
 	public MulInstruction(String label, String result, String source) {
 		super(label, result, source, OP_CODE);
 	}

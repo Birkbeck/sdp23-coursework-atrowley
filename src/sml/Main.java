@@ -1,5 +1,5 @@
 // Name: Adam Rowley
-// username (github): atrowley
+// Username (github): atrowley
 
 package sml;
 

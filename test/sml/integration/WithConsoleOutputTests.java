@@ -60,6 +60,8 @@ public class WithConsoleOutputTests {
     }
 
     /**
+     * Expected console output = 500
+     *
      * mov EAX 500
      * out EAX
      */
@@ -70,6 +72,8 @@ public class WithConsoleOutputTests {
     }
 
     /**
+     * Expected console output = 0
+     *
      * f1: mov EAX 2
      *     mov EBX 1
      *     sub EAX EBX
@@ -83,6 +87,8 @@ public class WithConsoleOutputTests {
     }
 
     /**
+     * Expected console output = 5040
+     *
      *     mov EAX 6
      *     mov EBX 1
      *     mov ECX 1
@@ -98,6 +104,8 @@ public class WithConsoleOutputTests {
     }
 
     /**
+     * Expected console output = 1320
+     *
      * mov EAX 66
      * mov EBX 10
      * add EAX EAX
@@ -111,6 +119,8 @@ public class WithConsoleOutputTests {
     }
 
     /**
+     * Expected console output = 720
+     *
      *     mov EAX 6
      *     mov EBX 1
      *     mov ECX 1
