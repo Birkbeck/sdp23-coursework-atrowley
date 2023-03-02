@@ -55,7 +55,7 @@ Instruction {
 	}
 
 	// TODO: What does abstract in the declaration below mean?
-	//       (Write a short explanation.) [COMPLETED]
+	//       (Write a short explanation.)
 	//Explanation:
 	//Making the toString() method abstract will ensure that all
 	//subclasses of Instruction will have to include in implementation of the method

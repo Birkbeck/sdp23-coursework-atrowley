@@ -4,14 +4,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
-import sml.instruction.DivInstruction;
 
 import static sml.Registers.Register.EAX;
 import static sml.Registers.Register.EBX;
 
+/**
+ * This class contains (limited) testing related to the Machine class
+ * (moved out of other test class)
+ */
 public class MachineTest {
 
     private Machine machine;
@@ -19,7 +21,7 @@ public class MachineTest {
 
     @BeforeEach
     void setUp() {
-        machine = Machine.newMachine(Registers.newRegisters());
+        machine = Machine.getMachine(Registers.getRegisters());
         registers = machine.getRegisters();
     }
 

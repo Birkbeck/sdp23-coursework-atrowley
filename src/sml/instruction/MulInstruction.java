@@ -21,10 +21,6 @@ public class MulInstruction extends InstructionWithResultAndSource {
 
 	public static final String OP_CODE = "mul";
 
-	public MulInstruction(String label, RegisterName result, RegisterName source) {
-		super(label, result, source, OP_CODE);
-	}
-
 	/**
 	 * Constructor that is accessed by the InstructionSetFactory via reflection
 	 * @param label the instruction label

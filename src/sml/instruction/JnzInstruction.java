@@ -23,12 +23,6 @@ public class JnzInstruction extends Instruction {
 	private final RegisterName source;
 	private final String labelToJumpTo;
 
-	public JnzInstruction(String label, RegisterName source, String labelToJumpTo) {
-		super(label, OP_CODE);
-		this.source = source;
-		this.labelToJumpTo = labelToJumpTo;
-	}
-
 	/**
 	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
 	 * @param label the instruction label
@@ -37,7 +31,13 @@ public class JnzInstruction extends Instruction {
 	 */
 	public JnzInstruction(String label, String source, String labelToJumpTo) {
 		super(label, OP_CODE);
-		this.source = Registers.Register.valueOf(source);
+
+		try{
+			this.source = Registers.Register.valueOf(source);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Register does not exist: "+ source, e);
+		}
+
 		this.labelToJumpTo = labelToJumpTo;
 	}
 

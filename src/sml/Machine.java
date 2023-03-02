@@ -15,7 +15,7 @@ import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 public final class Machine {
 
 	private static Machine machineInstance = null;
-	private final Labels labels = Labels.newLabels();
+	private final Labels labels = Labels.getLabels();
 	private final List<Instruction> program = new ArrayList<>();
 	private final Registers registers;
 
@@ -23,11 +23,19 @@ public final class Machine {
 	// of the next instruction to be executed.
 	private int programCounter = 0;
 
+		/**
+	 * Private constructor used for singleton instantiation
+	 * @param registers the Registers object
+	 */
 	private Machine(Registers registers) {
 		this.registers = registers;
 	}
 
-	public static Machine newMachine(Registers register){
+	/**
+	 * Returns the singleton instance of the class if it exists or instantiates it if not
+	 * @return the singleton instance of Machine
+	 */
+	public static Machine getMachine(Registers register){
 		if(machineInstance == null){
 			machineInstance = new Machine(register);
 		}

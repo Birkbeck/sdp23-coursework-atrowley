@@ -13,8 +13,8 @@ public class LabelsTest {
 
     @BeforeEach
     void setUp() {
-        labels = Labels.newLabels();
-        labels2 = Labels.newLabels();
+        labels = Labels.getLabels();
+        labels2 = Labels.getLabels();
     }
 
     @AfterEach

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sml.InstructionSetCW;
 import sml.Machine;
 import sml.Registers;
 import sml.Translator;
@@ -25,7 +24,7 @@ public class WithConsoleOutputTests {
 
     @BeforeEach
     void setUp() {
-        machine = Machine.newMachine(Registers.newRegisters());
+        machine = Machine.getMachine(Registers.getRegisters());
         registers = machine.getRegisters();
     }
 

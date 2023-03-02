@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
  * The value is the numerical address of the instruction that the label
  * refers to, i.e. the index position of the respective instruction in
  * the program ArrayList.
+ * <br><br>
+ * Class is a singleton as only one instance is to exist in the program
  * @author BBK staff member (code)
  * @author Adam Rowley (javadocs only)
  */
@@ -23,9 +25,16 @@ public final class Labels {
 	private static Labels labelsInstance = null;
 	private final Map<String, Integer> labels = new HashMap<>();
 
+	/**
+	 * Private constructor used for singleton instantiation
+	 */
 	private Labels(){}
 
-	public static Labels newLabels(){
+	/**
+	 * Returns the singleton instance of the class if it exists or instantiates it if not
+	 * @return the singleton instance of Labels
+	 */
+	public static Labels getLabels(){
 		if(labelsInstance == null){
 			labelsInstance = new Labels();
 		}

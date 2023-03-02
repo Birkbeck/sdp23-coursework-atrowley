@@ -38,13 +38,24 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 	 */
 	public InstructionWithResultAndSource(String label, String result, String source, String OP_CODE) {
 		super(label, OP_CODE);
-		this.result = Registers.Register.valueOf(result);
-		this.source = Registers.Register.valueOf(source);
+
+		try{
+			this.result = Registers.Register.valueOf(result);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Register does not exist: "+ result, e);
+		}
+
+		try{
+			this.source = Registers.Register.valueOf(source);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Register does not exist: "+ source, e);
+		}
+
 	}
 
 	/**
 	 * Method that can be called by a subclass in order to apply the subclass
-	 * operation implemented within the execute() method to the result and source registers.
+	 * operation implemented within the execute method to the result and source registers.
 	 * <br><br>
 	 * The first and second parameters of the BinaryOperator will relate to the result
 	 * and source registers respectively. For example the below instruction will

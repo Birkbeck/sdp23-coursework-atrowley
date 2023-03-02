@@ -1,12 +1,8 @@
 package sml.integration;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import sml.*;
 import java.io.IOException;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sml.Registers.Register.*;
@@ -23,7 +19,7 @@ class IntegrationTests {
 
   @BeforeEach
   void setUp() {
-    machine = Machine.newMachine(Registers.newRegisters());
+    machine = Machine.getMachine(Registers.getRegisters());
     registers = machine.getRegisters();
   }
 
@@ -180,15 +176,24 @@ class IntegrationTests {
    *     jnz EAX f2
    *     out EAX
    */
+
+  /**
+   * Helper method for returning RuntimeExceptions
+   * @param testFilePath file that is expected to cause an exception
+   * @return the RuntimeException
+   */
+  RuntimeException generateRuntimeException(String testFilePath){
+    translator = new Translator(testFilePath);
+    return assertThrows(RuntimeException.class, ()-> {
+      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
+      machine.execute();
+    });
+  }
+
   @Test
   void labelNotFoundTest() {
     String testFilePath = "test/sml/test-files/label-not-found-test.sml";
-    translator = new Translator(testFilePath);
-
-    RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
-        translator.readAndTranslate(machine.getLabels(), machine.getProgram());
-        machine.execute();
-    });
+    RuntimeException exc = generateRuntimeException(testFilePath);
     Assertions.assertEquals("Label not found: f2", exc.getMessage());
   }
 
@@ -204,13 +209,83 @@ class IntegrationTests {
   @Test
   void labelDuplicatedTest() {
     String testFilePath = "test/sml/test-files/label-duplicated-test.sml";
-    translator = new Translator(testFilePath);
-
-    RuntimeException exc = assertThrows(RuntimeException.class, ()-> {
-      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
-      machine.execute();
-    });
+    RuntimeException exc = generateRuntimeException(testFilePath);
     Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid opcode
+   * mov EAX 22
+   * mov EBX 15
+   * xxx EAX EBX
+   */
+  @Test
+  void invalidOpcodeTest() {
+    String testFilePath = "test/sml/test-files/opcode-error.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("No instruction found for opcode: xxx", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid register
+   * mov EAX 22
+   * mov BBX 15
+   */
+  @Test
+  void invalidRegisterTest() {
+    String testFilePath = "test/sml/test-files/register-error.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Register does not exist: BBX", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid register
+   * mov EAX 22
+   * mov EBX 15
+   * add BBX EAX
+   */
+  @Test
+  void invalidRegisterTest2() {
+    String testFilePath = "test/sml/test-files/register-error2.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Register does not exist: ABC", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid register
+   * f1: mov EAX 22
+   *     mov EBX 15
+   *     jnz ZZZ f1
+   */
+  @Test
+  void invalidRegisterTest3() {
+    String testFilePath = "test/sml/test-files/register-error3.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Register does not exist: ZZZ", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid register
+   * mov EAX 22
+   * mov EBX 15
+   * out YYY
+   */
+  @Test
+  void invalidRegisterTest4() {
+    String testFilePath = "test/sml/test-files/register-error4.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Register does not exist: YYY", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid mov value
+   * mov EAX hello
+   */
+  @Test
+  void invalidMovVal() {
+    String testFilePath = "test/sml/test-files/invalid-mov-value.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Invalid value for mov instruction: 'hello'", exc.getMessage());
   }
 
 }

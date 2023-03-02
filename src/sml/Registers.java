@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
  * This class contains a registers Hashmap that stores each register name (key) and the
  * respective integer value. Register names will be set in accordance with enum Register,
  * and all values set to zero on instancing the class.
+ * <br><br>
+ * Class is a singleton as only one instance is to exist in the program
  * @author BBK staff member
  */
 public final class Registers {
@@ -20,11 +22,19 @@ public final class Registers {
         EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI;
     }
 
+    /**
+     * Constructor is private in order to make class singleton by preventing
+     * new instances being created outside the class
+     */
     private  Registers() {
         clear(); // the class is final
     }
 
-    public static synchronized Registers newRegisters(){
+    /**
+     * Returns the singleton instance of the class if it exists or instantiates it if not
+     * @return the singleton instance of Registers
+     */
+    public static synchronized Registers getRegisters(){
         if (registersInstance == null){
             registersInstance = new Registers();
         }

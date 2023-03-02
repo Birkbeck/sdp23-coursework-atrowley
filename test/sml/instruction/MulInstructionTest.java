@@ -10,7 +10,6 @@ import sml.Registers;
 
 import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 import static sml.Registers.Register.*;
-import static sml.Registers.Register.EBP;
 
 /**
  * This class contains JUNIT tests for testing functionality
@@ -22,7 +21,7 @@ class MulInstructionTest {
 
   @BeforeEach
   void setUp() {
-    machine = Machine.newMachine(Registers.newRegisters());
+    machine = Machine.getMachine(Registers.getRegisters());
     registers = machine.getRegisters();
   }
 
@@ -32,102 +31,6 @@ class MulInstructionTest {
     registers = null;
   }
 
-//  /**
-//   * Validates that instance of instruction with correct opcode is created
-//   */
-//  @Test
-//  void createsMulInstance() {
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Assertions.assertEquals("mul", instruction.getOpcode());
-//  }
-//
-//  @Test
-//  void validToString() {
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Assertions.assertEquals("mul EAX EBX", instruction.toString());
-//  }
-//
-//  @Test
-//  void checkExecuteReturnsCounter() {
-//    registers.set(EAX, 1);
-//    registers.set(EBX, 1);
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Assertions.assertEquals(-1, instruction.execute(machine));
-//  }
-//
-//  /**
-//   * Validates that instruction returns expected result on execution
-//   */
-//  @Test
-//  void validMultiplicationTest1() {
-//    registers.set(EAX, 1);
-//    registers.set(EBX, 1);
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    instruction.execute(machine);
-//    Assertions.assertEquals(1, machine.getRegisters().get(EAX));
-//  }
-//
-//  /**
-//   * Validates that instruction returns expected result on execution
-//   */
-//  @Test
-//  void validMultiplicationTest2() {
-//    registers.set(EAX, 5);
-//    registers.set(EBX, -2);
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    instruction.execute(machine);
-//    Assertions.assertEquals(-10, machine.getRegisters().get(EAX));
-//  }
-//
-//  /**
-//   * Validates that instruction returns expected result on execution
-//   */
-//  @Test
-//  void validMultiplicationTest3() {
-//    registers.set(EAX, -5);
-//    registers.set(EBX, -6);
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    instruction.execute(machine);
-//    Assertions.assertEquals(30, machine.getRegisters().get(EAX));
-//  }
-//
-//  @Test
-//  void testEquality1() {
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Instruction instruction2 = new MulInstruction(null,EAX, EBX);
-//    Assertions.assertEquals(instruction, instruction2);
-//  }
-//
-//  @Test
-//  void testEquality2() {
-//    Instruction instruction = new MulInstruction("f1", ESP, EBP);
-//    Instruction instruction2 = new MulInstruction("f1", ESP, EBP);
-//    Assertions.assertEquals(instruction, instruction2);
-//  }
-//
-//  @Test
-//  void testInequality1() {
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Instruction instruction2 = new MulInstruction(null,EBX, EAX);
-//    Assertions.assertNotEquals(instruction, instruction2);
-//  }
-//
-//  @Test
-//  void testInequality2() {
-//    Instruction instruction = new MulInstruction(null,EAX, EBX);
-//    Instruction instruction2 = new AddInstruction(null,EAX, EBX);
-//    Assertions.assertNotEquals(instruction, instruction2);
-//  }
-//
-//  @Test
-//  void testInequality3() {
-//    Instruction instruction = new MulInstruction("f1",EAX, EBX);
-//    Instruction instruction2 = new MulInstruction(null,EAX, EBX);
-//    Assertions.assertNotEquals(instruction, instruction2);
-//  }
-
-
-  // Performs same suite of tests using the constructor that takes three string params
   /**
    * Validates that instance of instruction with correct opcode is created
    */

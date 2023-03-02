@@ -24,11 +24,6 @@ public class OutInstruction extends Instruction {
 	public static final String OP_CODE = "out";
 	private final RegisterName source;
 
-	public OutInstruction(String label, RegisterName source) {
-		super(label, OP_CODE);
-		this.source = source;
-	}
-
 	/**
 	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
 	 * @param label the instruction label
@@ -37,7 +32,12 @@ public class OutInstruction extends Instruction {
 	 */
 	public OutInstruction(String label, String source, String empty) {
 		super(label, OP_CODE);
-		this.source = Registers.Register.valueOf(source);
+
+		try{
+			this.source = Registers.Register.valueOf(source);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Register does not exist: "+ source, e);
+		}
 	}
 
 	/**

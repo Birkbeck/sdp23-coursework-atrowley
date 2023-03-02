@@ -22,7 +22,7 @@ public class InstructionSetCW implements InstructionSetFactory {
      * @return an instruction of the type that corresponds to the opcode
      */
     @Override
-    public Instruction newInstruction(String opcode, String label,String operand1, String operand2) {
+    public Instruction newInstruction(String opcode, String label,String operand1, String operand2) throws RuntimeException {
 
         String insClassName = "sml.instruction." + opcode.substring(0, 1).toUpperCase()
                 + opcode.substring(1) + "Instruction";
@@ -32,10 +32,15 @@ public class InstructionSetCW implements InstructionSetFactory {
             Constructor<?> insConstructor = insClass.getConstructor(String.class, String.class, String.class);
             return (Instruction) insConstructor.newInstance(label, operand1, operand2);
 
-        } catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException
-                | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // Will catch invalid opcode
+            throw new RuntimeException("No instruction found for opcode: " + opcode);
+        } catch (InvocationTargetException e) {
+            // Will catch invalid register
+            throw new RuntimeException(e.getTargetException().getMessage());
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException e) {
+            throw new RuntimeException("Failed to create instruction: " + e.toString());
         }
-        return null;
+
     }
 }

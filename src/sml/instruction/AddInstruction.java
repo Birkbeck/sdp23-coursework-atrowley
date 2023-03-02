@@ -23,10 +23,6 @@ public class AddInstruction extends InstructionWithResultAndSource {
 
 	public static final String OP_CODE = "add";
 
-	public AddInstruction(String label, RegisterName result, RegisterName source) {
-		super(label, result, source, OP_CODE);
-	}
-
 	/**
 	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
 	 * @param label the instruction label

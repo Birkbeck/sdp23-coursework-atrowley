@@ -5,6 +5,7 @@ import sml.Machine;
 import sml.RegisterName;
 import sml.Registers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**
@@ -25,12 +26,6 @@ public class MovInstruction extends Instruction {
 	private final int value;
 	private final RegisterName result;
 
-	public MovInstruction(String label, RegisterName result, int value) {
-		super(label, OP_CODE);
-		this.result = result;
-		this.value = value;
-	}
-
 	/**
 	 * Constructor that is accessed by an implementation of InstructionSetFactory via reflection
 	 * @param label the instruction label
@@ -39,8 +34,20 @@ public class MovInstruction extends Instruction {
 	 */
 	public MovInstruction(String label, String result, String value) {
 		super(label, OP_CODE);
-		this.result = Registers.Register.valueOf(result);
-		this.value = Integer.parseInt(value);
+
+		try{
+			this.result = Registers.Register.valueOf(result);
+		}catch(IllegalArgumentException e){
+			throw new IllegalArgumentException("Register does not exist: "+ result, e);
+		}
+
+		try{
+			this.value = Integer.parseInt(value);
+		}catch(NumberFormatException e){
+			throw new RuntimeException("Invalid value for mov instruction: '" + value + "'", e);
+		}
+
+
 	}
 
 	/**
