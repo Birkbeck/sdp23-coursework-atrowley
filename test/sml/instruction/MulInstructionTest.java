@@ -13,7 +13,8 @@ import sml.Machine;
 import sml.Registers;
 
 import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
-import static sml.Registers.Register.*;
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.EBX;
 
 /**
  * This class contains JUNIT tests for testing functionality
@@ -47,15 +48,6 @@ class MulInstructionTest {
   }
 
   /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToStringB() {
-    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
-    Assertions.assertEquals("mul EAX EBX", instruction.toString());
-  }
-
-  /**
    * Validates that execute method returns NORMAL_PROGRAM_COUNTER_UPDATE
    */
   @Test
@@ -64,42 +56,6 @@ class MulInstructionTest {
     registers.set(EBX, 1);
     Instruction instruction = new MulInstruction(null,"EAX", "EBX");
     Assertions.assertEquals(NORMAL_PROGRAM_COUNTER_UPDATE, instruction.execute(machine));
-  }
-
-  /**
-   * Validates that instruction returns expected result on execution
-   */
-  @Test
-  void validMultiplicationTest1B() {
-    registers.set(EAX, 1);
-    registers.set(EBX, 1);
-    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(1, machine.getRegisters().get(EAX));
-  }
-
-  /**
-   * Validates that instruction returns expected result on execution
-   */
-  @Test
-  void validMultiplicationTest2B() {
-    registers.set(EAX, 5);
-    registers.set(EBX, -2);
-    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(-10, machine.getRegisters().get(EAX));
-  }
-
-  /**
-   * Validates that instruction returns expected result on execution
-   */
-  @Test
-  void validMultiplicationTest3B() {
-    registers.set(EAX, -5);
-    registers.set(EBX, -6);
-    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(30, machine.getRegisters().get(EAX));
   }
 
   /**
@@ -150,5 +106,50 @@ class MulInstructionTest {
     Instruction instruction = new MulInstruction("f1","EAX", "EBX");
     Instruction instruction2 = new MulInstruction(null,"EAX", "EBX");
     Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validMultiplicationTest1B() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 1);
+    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(1, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validMultiplicationTest2B() {
+    registers.set(EAX, 5);
+    registers.set(EBX, -2);
+    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(-10, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validMultiplicationTest3B() {
+    registers.set(EAX, -5);
+    registers.set(EBX, -6);
+    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(30, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToStringB() {
+    Instruction instruction = new MulInstruction(null,"EAX", "EBX");
+    Assertions.assertEquals("mul EAX EBX", instruction.toString());
   }
 }

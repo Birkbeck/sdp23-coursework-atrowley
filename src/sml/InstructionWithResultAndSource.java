@@ -11,8 +11,8 @@ import java.util.function.BinaryOperator;
  * Represents an abstract instruction of the type that specifically utilises
  * both a result and source register as both of its operands. Implements all
  * functionality related to such instruction types other than the final operation
- * (which is to be defined by subclasses). <br><br>
- *
+ * (which is to be defined by subclasses).
+ * <br><br>
  * Defines register parameters that will be common to all derived subclasses
  * (result and source), executes the operation of any derived subclass, and defines the
  * following abstract method that must be implemented:
@@ -22,26 +22,27 @@ import java.util.function.BinaryOperator;
  * @author GitHub username atrowley
  */
 public abstract class InstructionWithResultAndSource extends Instruction {
+
 	protected final RegisterName result;
 	protected final RegisterName source;
-
-	public InstructionWithResultAndSource(String label, RegisterName result, RegisterName source, String OP_CODE) {
-		super(label, OP_CODE);
-		this.result = result;
-		this.source = source;
-	}
 
 	/**
 	 * This constructor uses strings only. The same is implemented on all instruction classes so that
 	 * there is a common constructor signature that can be referred to using reflection within an
 	 * InstructionSetFactory implementation
+	 * <br><br>
+	 * Catches exceptions if Register names do not exist or are null
 	 * @param label the label (if applicable)
 	 * @param result the name of the result register
 	 * @param source the name of the source register
 	 * @param OP_CODE the opcode
 	 */
-	public InstructionWithResultAndSource(String label, String result, String source, String OP_CODE) {
+	protected InstructionWithResultAndSource(String label, String result, String source, String OP_CODE) {
 		super(label, OP_CODE);
+
+		if(result==null || source==null){
+			throw new RuntimeException("A register value for opcode '" + OP_CODE + "' is missing (null)");
+		}
 
 		try{
 			this.result = Registers.Register.valueOf(result);
@@ -54,7 +55,6 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 		}catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Register does not exist: "+ source, e);
 		}
-
 	}
 
 	/**
@@ -85,6 +85,7 @@ public abstract class InstructionWithResultAndSource extends Instruction {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) return true;
 		if(!(obj instanceof InstructionWithResultAndSource other)) return false;
 		return this.result.equals(other.result)
 				&& this.source.equals(other.source)

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -42,6 +43,15 @@ class OutInstructionTest {
   }
 
   /**
+   * Validates that instance of instruction with correct opcode is created
+   */
+  @Test
+  void createsOutInstanceB() {
+    Instruction instruction = new OutInstruction(null,"EAX",null);
+    Assertions.assertEquals("out", instruction.getOpcode());
+  }
+
+  /**
    * Helper method that executes the OutInstruction and returns the console output string
    * @param instruction the OutInstruction to test
    * @return console output as String
@@ -54,25 +64,6 @@ class OutInstructionTest {
     String outputString = byteArrayStream.toString();
     System.setOut(System.out);
     return outputString;
-  }
-
-
-  /**
-   * Validates that instance of instruction with correct opcode is created
-   */
-  @Test
-  void createsOutInstanceB() {
-    Instruction instruction = new OutInstruction(null,"EAX",null);
-    Assertions.assertEquals("out", instruction.getOpcode());
-  }
-
-  /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToStringB() {
-    Instruction instruction = new OutInstruction(null,"EAX", null);
-    Assertions.assertEquals("out EAX", instruction.toString());
   }
 
   /**
@@ -154,5 +145,14 @@ class OutInstructionTest {
     Instruction instruction = new OutInstruction("f1","EAX",null);
     Instruction instruction2 = new OutInstruction(null,"EAX",null);
     Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToStringB() {
+    Instruction instruction = new OutInstruction(null,"EAX", null);
+    Assertions.assertEquals("out EAX", instruction.toString());
   }
 }

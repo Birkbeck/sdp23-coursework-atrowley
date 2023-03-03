@@ -4,8 +4,7 @@
 
 package sml;
 
-// TODO: write a JavaDoc for the class
-//  [COMPLETED]
+// TODO: write a JavaDoc for the class [COMPLETED]
 /**
  * Represents an abstract instruction.
  * Includes parameters common to all subclasses (label, opcode, and default
@@ -31,21 +30,13 @@ Instruction {
 	 * @param label optional label (can be null)
 	 * @param opcode operation name
 	 */
-	public Instruction(String label, String opcode) {
+	protected Instruction(String label, String opcode) {
 		this.label = label;
 		this.opcode = opcode;
 	}
 
-	public String getLabel() {
-		return label;
-	}
-
-	public String getOpcode() {
-		return opcode;
-	}
-
 	/**
-	 * Executes the instruction in the given machine.
+	 * For implementation of method that Executes the instruction in the given machine.
 	 *
 	 * @param machine the machine the instruction runs on
 	 * @return the new program counter (for jump instructions)
@@ -54,15 +45,24 @@ Instruction {
 	 */
 	public abstract int execute(Machine machine);
 
+	public String getLabel() {
+		return label;
+	}
+
 	protected String getLabelString() {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
+
+	public String getOpcode() {
+		return opcode;
+	}
+
 
 	// TODO: What does abstract in the declaration below mean?
 	//       (Write a short explanation.)
 	//Explanation:
 	//Making the toString() method abstract will ensure that all
-	//subclasses of Instruction will have to include in implementation of the method
+	//subclasses of Instruction will have to include an implementation of the method
 	@Override
 	public abstract String toString();
 

@@ -36,6 +36,8 @@ public class JnzInstruction extends Instruction {
 	public JnzInstruction(String label, String source, String labelToJumpTo) {
 		super(label, OP_CODE);
 
+		if(source==null) throw new RuntimeException("A register value for opcode '" + OP_CODE + "' is missing (null)");
+
 		try{
 			this.source = Registers.Register.valueOf(source);
 		}catch(IllegalArgumentException e){
@@ -43,6 +45,22 @@ public class JnzInstruction extends Instruction {
 		}
 
 		this.labelToJumpTo = labelToJumpTo;
+	}
+
+	/**
+	 * Checks whether an object has equal properties to this JnzInstruction
+	 * @param obj an object
+	 * @return true if other object is also a JnzInstruction, and has same
+	 * label, opcode, source register, and instruction to jump to
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if(!(obj instanceof JnzInstruction other)) return false;
+		return this.source.equals(other.source)
+				&& this.getOpcode().equals(other.getOpcode())
+				&& this.labelToJumpTo.equals(other.labelToJumpTo)
+				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	/**
@@ -59,21 +77,6 @@ public class JnzInstruction extends Instruction {
 			return machine.getLabels().getAddress(labelToJumpTo);
 		};
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
-	}
-
-	/**
-	 * Checks whether an object has equal properties to this JnzInstruction
-	 * @param obj an object
-	 * @return true if other object is also a JnzInstruction, and has same
-	 * label, opcode, source register, and instruction to jump to
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof JnzInstruction other)) return false;
-		return this.source.equals(other.source)
-				&& this.getOpcode().equals(other.getOpcode())
-				&& this.labelToJumpTo.equals(other.labelToJumpTo)
-				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	/**

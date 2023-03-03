@@ -38,13 +38,13 @@ public class MachineTest {
     }
 
     @Test
-    void checkResultAssignsToRegisterB() {
+    void checkResultAssignsToRegister() {
         registers.set(EAX, 30);
         Assertions.assertEquals(30, machine.getRegisters().get(EAX));
     }
 
     @Test
-    void checkSourceAssignsToRegisterB() {
+    void checkSourceAssignsToRegister() {
         registers.set(EAX, 1);
         registers.set(EBX, 50);
         Assertions.assertEquals(50, machine.getRegisters().get(EBX));

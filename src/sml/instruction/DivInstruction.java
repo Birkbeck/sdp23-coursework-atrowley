@@ -3,13 +3,13 @@
 // Birkbeck ID: 13192359
 
 package sml.instruction;
+
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
-import sml.RegisterName;
 
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
- * a source register and result register.
+ * a source register and result register as as operand parameters.
  * <br><br>
  * Overrides the execute method to pass a BinaryOperator that represents an integer
  * division operation to the superclass method applyExecution().
@@ -48,5 +48,4 @@ public class DivInstruction extends InstructionWithResultAndSource {
 		applyExecution((a, b) -> a / b, machine);
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
 	}
-
 }

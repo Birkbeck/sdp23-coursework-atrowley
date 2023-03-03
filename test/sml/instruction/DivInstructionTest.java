@@ -13,7 +13,8 @@ import sml.Machine;
 import sml.Registers;
 
 import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
-import static sml.Registers.Register.*;
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.EBX;
 
 /**
  * This class contains JUNIT tests for testing functionality
@@ -39,24 +40,6 @@ class DivInstructionTest {
   }
 
   /**
-   * Validates that instance of instruction with correct opcode is created
-   */
-  @Test
-  void createsDivInstanceB() {
-    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
-    Assertions.assertEquals("div", instruction.getOpcode());
-  }
-
-  /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToStringB() {
-    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
-    Assertions.assertEquals("div EAX EBX", instruction.toString());
-  }
-
-  /**
    * Validates that execute method returns NORMAL_PROGRAM_COUNTER_UPDATE
    */
   @Test
@@ -68,39 +51,12 @@ class DivInstructionTest {
   }
 
   /**
-   * Validates that instruction returns expected result on execution
+   * Validates that instance of instruction with correct opcode is created
    */
   @Test
-  void validDivisionTest1B() {
-    registers.set(EAX, 1);
-    registers.set(EBX, 1);
+  void createsDivInstanceB() {
     Instruction instruction = new DivInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(1, machine.getRegisters().get(EAX));
-  }
-
-  /**
-   * Validates that instruction returns expected result on execution
-   */
-  @Test
-  void validDivisionTest2B() {
-    registers.set(EAX, 30);
-    registers.set(EBX, 5);
-    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(6, machine.getRegisters().get(EAX));
-  }
-
-  /**
-   * Validates that instruction returns expected result on execution
-   */
-  @Test
-  void validDivisionTest3B() {
-    registers.set(EAX, 60);
-    registers.set(EBX, 7);
-    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
-    instruction.execute(machine);
-    Assertions.assertEquals(8, machine.getRegisters().get(EAX));
+    Assertions.assertEquals("div", instruction.getOpcode());
   }
 
   /**
@@ -152,4 +108,51 @@ class DivInstructionTest {
     Instruction instruction2 = new DivInstruction(null,"EAX", "EBX");
     Assertions.assertNotEquals(instruction, instruction2);
   }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validDivisionTest1B() {
+    registers.set(EAX, 1);
+    registers.set(EBX, 1);
+    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(1, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validDivisionTest2B() {
+    registers.set(EAX, 30);
+    registers.set(EBX, 5);
+    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(6, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates that instruction returns expected result on execution
+   */
+  @Test
+  void validDivisionTest3B() {
+    registers.set(EAX, 60);
+    registers.set(EBX, 7);
+    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
+    instruction.execute(machine);
+    Assertions.assertEquals(8, machine.getRegisters().get(EAX));
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToStringB() {
+    Instruction instruction = new DivInstruction(null,"EAX", "EBX");
+    Assertions.assertEquals("div EAX EBX", instruction.toString());
+  }
+
+
 }

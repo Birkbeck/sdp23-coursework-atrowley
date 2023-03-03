@@ -8,8 +8,6 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 /**
@@ -39,6 +37,8 @@ public class MovInstruction extends Instruction {
 	public MovInstruction(String label, String result, String value) {
 		super(label, OP_CODE);
 
+		if(result==null) throw new RuntimeException("A register value for opcode '" + OP_CODE + "' is missing (null)");
+
 		try{
 			this.result = Registers.Register.valueOf(result);
 		}catch(IllegalArgumentException e){
@@ -50,8 +50,6 @@ public class MovInstruction extends Instruction {
 		}catch(NumberFormatException e){
 			throw new RuntimeException("Invalid value for mov instruction: '" + value + "'", e);
 		}
-
-
 	}
 
 	/**
@@ -74,6 +72,7 @@ public class MovInstruction extends Instruction {
 	 */
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) return true;
 		if(!(obj instanceof MovInstruction other)) return false;
 		return this.result.equals(other.result)
 				&& this.value == other.value
@@ -101,4 +100,5 @@ public class MovInstruction extends Instruction {
 		return getLabelString() + getOpcode() + " " + result
 				+ " " + Integer.toString(this.value);
 	}
+
 }

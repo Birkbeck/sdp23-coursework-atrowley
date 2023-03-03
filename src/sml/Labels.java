@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 // TODO: write a JavaDoc for the class [COMPLETED]
+
 /**
  * Class that holds the label map that is used by the Machine class
  * and written to by the Translation class.
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  * refers to, i.e. the index position of the respective instruction in
  * the program ArrayList.
  * <br><br>
- * Class is a singleton as only one instance is to exist in the program
+ * Class converted to a singleton as only one instance to exist in the program
  * @author BBK staff member (code)
  * @author Adam Rowley (javadocs and TO-DO items only) (Birkbeck ID: 13192359)
  */
@@ -55,15 +56,13 @@ public final class Labels {
 	 */
 	public void addLabel(String label, int address) {
 		Objects.requireNonNull(label);
-		// TODO: Add a check that there are no label duplicates.
-		//  [COMPLETED]
+		// TODO: Add a check that there are no label duplicates. [COMPLETED]
 		if (labels.containsKey(label)) {
 			throw new RuntimeException("Duplicate label occurrence: "+label);
 		} else {
 			labels.put(label, address);
 		}
 	}
-
 
 	/**
 	 * Returns the address associated with the label.<br>
@@ -76,8 +75,7 @@ public final class Labels {
 	public int getAddress(String label) {
 		// TODO: Where can NullPointerException be thrown here?
 		//       (Write an explanation.)
-		//       Add code to deal with non-existent labels.
-		//       [COMPLETED]
+		//       Add code to deal with non-existent labels. [COMPLETED]
 		// Explanation: a null pointer could occur if an attempt
 		// is made to get a label that doesn't exist in the hashmap.
 		// For example, this could happen if a jump instruction indicates
@@ -114,8 +112,7 @@ public final class Labels {
 		return "["+labelMapString+"]";
 	}
 
-	// TODO: Implement equals and hashCode (needed in class Machine).
-	//  [COMPLETED]
+	// TODO: Implement equals and hashCode (needed in class Machine). [COMPLETED]
 	/**
 	 * Checks whether an object has equal properties to this Label class
 	 * @param obj an object

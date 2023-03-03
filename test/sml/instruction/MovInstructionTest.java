@@ -49,15 +49,6 @@ class MovInstructionTest {
   }
 
   /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToStringB() {
-    Instruction instruction = new MovInstruction(null,"EAX", "10");
-    Assertions.assertEquals("mov EAX 10", instruction.toString());
-  }
-
-  /**
    * Validates that execute method returns NORMAL_PROGRAM_COUNTER_UPDATE
    */
   @Test
@@ -134,5 +125,14 @@ class MovInstructionTest {
     Instruction instruction = new MovInstruction("f1", "EAX", "8");
     Instruction instruction2 = new MovInstruction(null, "EAX", "8");
     Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToStringB() {
+    Instruction instruction = new MovInstruction(null,"EAX", "10");
+    Assertions.assertEquals("mov EAX 10", instruction.toString());
   }
 }

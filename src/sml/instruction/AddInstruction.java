@@ -6,12 +6,11 @@ package sml.instruction;
 
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
-import sml.RegisterName;
 
 // TODO: write a JavaDoc for the class [COMPLETED]
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
- * a source register and result register.
+ * a source register and result register as operand parameters.
  * <br><br>
  * Overrides the execute method to pass a BinaryOperator that represents an addition
  * operation to the superclass method applyExecution().

@@ -4,7 +4,10 @@
 
 package sml.instruction;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import sml.Instruction;
 import sml.Labels;
 import sml.Machine;
@@ -20,9 +23,11 @@ import static sml.Registers.Register.EAX;
  * @author GitHub username atrowley
  */
 class JnzInstructionTest {
+
+  private Labels labels;
   private Machine machine;
   private Registers registers;
-  private Labels labels;
+
 
   @BeforeEach
   void setUp() {
@@ -36,33 +41,6 @@ class JnzInstructionTest {
   void tearDown() {
     machine = null;
     registers = null;
-  }
-
-  /**
-   * Validates that instance of instruction with correct opcode is created
-   */
-  @Test
-  void createsJnzInstanceB() {
-    Instruction instruction = new JnzInstruction(null,"EAX", "f1");
-    Assertions.assertEquals("jnz", instruction.getOpcode());
-  }
-
-  /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToStringB() {
-    Instruction instruction = new JnzInstruction(null,"EAX", "f1");
-    Assertions.assertEquals("jnz EAX f1", instruction.toString());
-  }
-
-  /**
-   * Validates toString method of the class
-   */
-  @Test
-  void validToString2B() {
-    Instruction instruction = new JnzInstruction("f2", "EAX", "f1");
-    Assertions.assertEquals("f2: jnz EAX f1", instruction.toString());
   }
 
   /**
@@ -87,6 +65,15 @@ class JnzInstructionTest {
     labels.addLabel("f1",5);
     Instruction instruction = new JnzInstruction(null, "EAX", "f1");
     Assertions.assertEquals(5, instruction.execute(machine));
+  }
+
+  /**
+   * Validates that instance of instruction with correct opcode is created
+   */
+  @Test
+  void createsJnzInstanceB() {
+    Instruction instruction = new JnzInstruction(null,"EAX", "f1");
+    Assertions.assertEquals("jnz", instruction.getOpcode());
   }
 
   /**
@@ -137,5 +124,23 @@ class JnzInstructionTest {
     Instruction instruction = new JnzInstruction("f4", "EBX","f1");
     Instruction instruction2 = new JnzInstruction("f5", "EBX", "f1");
     Assertions.assertNotEquals(instruction, instruction2);
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToStringB() {
+    Instruction instruction = new JnzInstruction(null,"EAX", "f1");
+    Assertions.assertEquals("jnz EAX f1", instruction.toString());
+  }
+
+  /**
+   * Validates toString method of the class
+   */
+  @Test
+  void validToString2B() {
+    Instruction instruction = new JnzInstruction("f2", "EAX", "f1");
+    Assertions.assertEquals("f2: jnz EAX f1", instruction.toString());
   }
 }

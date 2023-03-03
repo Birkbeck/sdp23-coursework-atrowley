@@ -8,6 +8,7 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers;
+
 import java.util.Objects;
 
 /**
@@ -37,11 +38,28 @@ public class OutInstruction extends Instruction {
 	public OutInstruction(String label, String source, String empty) {
 		super(label, OP_CODE);
 
+		if(source==null) throw new RuntimeException("A register value for opcode '" + OP_CODE + "' is missing (null)");
+
 		try{
 			this.source = Registers.Register.valueOf(source);
 		}catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Register does not exist: "+ source, e);
 		}
+	}
+
+	/**
+	 * Checks whether an object has equal properties to this OutInstruction
+	 * @param obj an object
+	 * @return true if other object is also an OutInstruction, and has the
+	 * same label, opcode, and source register
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if(!(obj instanceof OutInstruction other)) return false;
+		return this.source.equals(other.source)
+						&& this.getOpcode().equals(other.getOpcode())
+						&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	/**
@@ -53,20 +71,6 @@ public class OutInstruction extends Instruction {
 	public int execute(Machine machine) {
 		System.out.println(machine.getRegisters().get(source));
 		return NORMAL_PROGRAM_COUNTER_UPDATE;
-	}
-
-	/**
-	 * Checks whether an object has equal properties to this OutInstruction
-	 * @param obj an object
-	 * @return true if other object is also an OutInstruction, and has the
-	 * same label, opcode, and source register
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof OutInstruction other)) return false;
-		return this.source.equals(other.source)
-				&& this.getOpcode().equals(other.getOpcode())
-				&& Objects.equals(this.getLabel(), other.getLabel());
 	}
 
 	/**

@@ -6,11 +6,10 @@ package sml.instruction;
 
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
-import sml.RegisterName;
 
 /**
  * Extends the InstructionWitResultAndSource class as constructor takes both
- * a source register and result register.
+ * a source register and result register as operand parameters.
  * <p>
  * Overrides the execute method to pass a BinaryOperator that represents a subtraction
  * operation to the superclass method applyExecution().

@@ -4,16 +4,24 @@
 
 package sml.integration;
 
-import org.junit.jupiter.api.*;
-import sml.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import sml.Machine;
+import sml.RegisterName;
+import sml.Registers;
+import sml.Translator;
+
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static sml.Registers.Register.*;
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.ESP;
 
 /**
  * This class contains tests that validate whether a stated register contains the
- * expected result after executing a test sml file@author Adam Rowley (Birkbeck ID: 13192359)
+ * expected result after executing a test sml file
  * @author Adam Rowley (Birkbeck ID: 13192359)
  * @author GitHub username atrowley
  */
@@ -21,7 +29,7 @@ class IntegrationTests {
 
   private Machine machine;
   private Registers registers;
-  Translator translator;
+  private Translator translator;
 
   @BeforeEach
   void setUp() {
@@ -34,6 +42,30 @@ class IntegrationTests {
     machine = null;
     registers = null;
     translator = null;
+  }
+
+  /**
+   * Helper method for returning RuntimeExceptions
+   * @param testFilePath file that is expected to cause an exception
+   * @return the RuntimeException
+   */
+  RuntimeException generateRuntimeException(String testFilePath){
+    translator = new Translator(testFilePath);
+    return assertThrows(RuntimeException.class, ()-> {
+      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
+      machine.execute();
+    });
+  }
+
+  /**
+   * Attempts to run a program that contains an invalid mov value
+   * mov EAX hello
+   */
+  @Test
+  void invalidMovVal() {
+    String testFilePath = "test/sml/test-files/invalid-mov-value.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Invalid value for mov instruction: 'hello'", exc.getMessage());
   }
 
   /**
@@ -53,171 +85,6 @@ class IntegrationTests {
     }
   }
 
-  /**
-   * Input file contains two moves and one add
-   * Expected result: EAX = 7
-   *
-   * mov EAX 6
-   * mov EBX 1
-   * add EAX EBX
-   */
-  @Test
-  void testMovAdd1() {
-    String testFilePath = "test/sml/test-files/mov-add-only1.sml";
-    validateInputFileWithExpectedResult(testFilePath, 7, EAX);
-  }
-
-  /**
-   * Expected result: EAX = 15
-   *
-   * mov EAX 6
-   * mov EBX 1
-   * add EAX EBX
-   * mov ECX 9
-   * mov EDX -1
-   * add ECX EDX
-   * add EAX ECX
-   */
-  @Test
-  void testMovAdd2() {
-    String testFilePath = "test/sml/test-files/mov-add-only2.sml";
-    validateInputFileWithExpectedResult(testFilePath, 15, EAX);
-  }
-
-  /**
-   * Expected result: EAX = 120
-   *
-   * mov EAX 6
-   * mov EBX 20
-   * mul EAX EBX
-   */
-  @Test
-  void testMovMul1() {
-    String testFilePath = "test/sml/test-files/mov-mul-only1.sml";
-    validateInputFileWithExpectedResult(testFilePath, 120, EAX);
-  }
-
-  /**
-   * Expected result: EAX = 300
-   *
-   * mov EAX 5
-   * mov EBX 10
-   * mov ECX 6
-   * mul EAX EBX
-   * mul EAX ECX
-   */
-  @Test
-  void testMovMul2() {
-    String testFilePath = "test/sml/test-files/mov-mul-only2.sml";
-    validateInputFileWithExpectedResult(testFilePath, 300, EAX);
-  }
-
-  /**
-   * Expected result: EAX = 15
-   *
-   * mov EAX 24
-   * mov EBX 9
-   * sub EAX EBX
-   */
-  @Test
-  void testMovSub1() {
-    String testFilePath = "test/sml/test-files/mov-sub-only1.sml";
-    validateInputFileWithExpectedResult(testFilePath, 15, EAX);
-  }
-
-  /**
-   * Expected result: ESP = 20
-   *
-   * mov EBP 8
-   * mov ESP 38
-   * mov ESI 55
-   * mov EDI 45
-   * sub ESP EBP
-   * sub ESI EDI
-   * sub ESP ESI
-   */
-  @Test
-  void testMovSub2() {
-    String testFilePath = "test/sml/test-files/mov-sub-only2.sml";
-    validateInputFileWithExpectedResult(testFilePath, 20, ESP);
-  }
-
-  /**
-   * Expected result: EAX = 4
-   *
-   * mov EAX 8
-   * mov EBX 2
-   * div EAX EBX
-   */
-  @Test
-  void testMovDiv1() {
-    String testFilePath = "test/sml/test-files/mov-div-only1.sml";
-    validateInputFileWithExpectedResult(testFilePath, 4, EAX);
-  }
-
-  /**
-   * Expected result: EAX = 10
-   *
-   * mov EAX 120
-   * mov EBX 4
-   * div EAX EBX
-   * mov ECX 24
-   * mov EDX 7
-   * div ECX EDX
-   * div EAX ECX
-   */
-  @Test
-  void testMovDiv2() {
-    String testFilePath = "test/sml/test-files/mov-div-only2.sml";
-    validateInputFileWithExpectedResult(testFilePath, 10, EAX);
-  }
-
-  /**
-   * Attempts to run a program where jump instruction
-   * tries to jump to a non-existing label.
-   *
-   *     mov EAX 2
-   *     mov EBX 1
-   * f1: sub EAX EBX
-   *     jnz EAX f2
-   *     out EAX
-   */
-
-  /**
-   * Helper method for returning RuntimeExceptions
-   * @param testFilePath file that is expected to cause an exception
-   * @return the RuntimeException
-   */
-  RuntimeException generateRuntimeException(String testFilePath){
-    translator = new Translator(testFilePath);
-    return assertThrows(RuntimeException.class, ()-> {
-      translator.readAndTranslate(machine.getLabels(), machine.getProgram());
-      machine.execute();
-    });
-  }
-
-  @Test
-  void labelNotFoundTest() {
-    String testFilePath = "test/sml/test-files/label-not-found-test.sml";
-    RuntimeException exc = generateRuntimeException(testFilePath);
-    Assertions.assertEquals("Label not found: f2", exc.getMessage());
-  }
-
-  /**
-   * Attempts to run a program that contains a duplicate label
-   *
-   *     mov EAX 2
-   * f1: mov EBX 1
-   * f1: sub EAX EBX
-   *     jnz EAX f1
-   *     out EAX
-   */
-  @Test
-  void labelDuplicatedTest() {
-    String testFilePath = "test/sml/test-files/label-duplicated-test.sml";
-    RuntimeException exc = generateRuntimeException(testFilePath);
-    Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
-  }
 
   /**
    * Attempts to run a program that contains an invalid opcode
@@ -284,17 +151,161 @@ class IntegrationTests {
   }
 
   /**
-   * Attempts to run a program that contains an invalid mov value
-   * mov EAX hello
+   * Attempts to run a program that contains a duplicate label
+   *
+   *     mov EAX 2
+   * f1: mov EBX 1
+   * f1: sub EAX EBX
+   *     jnz EAX f1
+   *     out EAX
    */
   @Test
-  void invalidMovVal() {
-    String testFilePath = "test/sml/test-files/invalid-mov-value.sml";
+  void labelDuplicatedTest() {
+    String testFilePath = "test/sml/test-files/label-duplicated-test.sml";
     RuntimeException exc = generateRuntimeException(testFilePath);
-    Assertions.assertEquals("Invalid value for mov instruction: 'hello'", exc.getMessage());
+    Assertions.assertEquals("Duplicate label occurrence: f1", exc.getMessage());
+  }
+
+  /**
+   * Attempts to run a program where jump instruction
+   * tries to jump to a non-existing label.
+   *
+   *     mov EAX 2
+   *     mov EBX 1
+   * f1: sub EAX EBX
+   *     jnz EAX f2
+   *     out EAX
+   */
+  @Test
+  void labelNotFoundTest() {
+    String testFilePath = "test/sml/test-files/label-not-found-test.sml";
+    RuntimeException exc = generateRuntimeException(testFilePath);
+    Assertions.assertEquals("Label not found: f2", exc.getMessage());
+  }
+
+  /**
+   * Input file contains two moves and one add
+   * Expected result: EAX = 7
+   *
+   * mov EAX 6
+   * mov EBX 1
+   * add EAX EBX
+   */
+  @Test
+  void testMovAdd1() {
+    String testFilePath = "test/sml/test-files/mov-add-only1.sml";
+    validateInputFileWithExpectedResult(testFilePath, 7, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 15
+   *
+   * mov EAX 6
+   * mov EBX 1
+   * add EAX EBX
+   * mov ECX 9
+   * mov EDX -1
+   * add ECX EDX
+   * add EAX ECX
+   */
+  @Test
+  void testMovAdd2() {
+    String testFilePath = "test/sml/test-files/mov-add-only2.sml";
+    validateInputFileWithExpectedResult(testFilePath, 15, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 4
+   *
+   * mov EAX 8
+   * mov EBX 2
+   * div EAX EBX
+   */
+  @Test
+  void testMovDiv1() {
+    String testFilePath = "test/sml/test-files/mov-div-only1.sml";
+    validateInputFileWithExpectedResult(testFilePath, 4, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 10
+   *
+   * mov EAX 120
+   * mov EBX 4
+   * div EAX EBX
+   * mov ECX 24
+   * mov EDX 7
+   * div ECX EDX
+   * div EAX ECX
+   */
+  @Test
+  void testMovDiv2() {
+    String testFilePath = "test/sml/test-files/mov-div-only2.sml";
+    validateInputFileWithExpectedResult(testFilePath, 10, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 120
+   *
+   * mov EAX 6
+   * mov EBX 20
+   * mul EAX EBX
+   */
+  @Test
+  void testMovMul1() {
+    String testFilePath = "test/sml/test-files/mov-mul-only1.sml";
+    validateInputFileWithExpectedResult(testFilePath, 120, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 300
+   *
+   * mov EAX 5
+   * mov EBX 10
+   * mov ECX 6
+   * mul EAX EBX
+   * mul EAX ECX
+   */
+  @Test
+  void testMovMul2() {
+    String testFilePath = "test/sml/test-files/mov-mul-only2.sml";
+    validateInputFileWithExpectedResult(testFilePath, 300, EAX);
+  }
+
+  /**
+   * Expected result: EAX = 15
+   *
+   * mov EAX 24
+   * mov EBX 9
+   * sub EAX EBX
+   */
+  @Test
+  void testMovSub1() {
+    String testFilePath = "test/sml/test-files/mov-sub-only1.sml";
+    validateInputFileWithExpectedResult(testFilePath, 15, EAX);
+  }
+
+  /**
+   * Expected result: ESP = 20
+   *
+   * mov EBP 8
+   * mov ESP 38
+   * mov ESI 55
+   * mov EDI 45
+   * sub ESP EBP
+   * sub ESI EDI
+   * sub ESP ESI
+   */
+  @Test
+  void testMovSub2() {
+    String testFilePath = "test/sml/test-files/mov-sub-only2.sml";
+    validateInputFileWithExpectedResult(testFilePath, 20, ESP);
   }
 
 }
+
+
+
 
 
 
