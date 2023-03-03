@@ -4,13 +4,13 @@
 
 package sml;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
 
 
@@ -26,35 +26,22 @@ import java.util.Scanner;
  */
 public final class Translator {
 
-  private InstructionSetFactory instructionSetFactory;
+  private final InstructionSetFactory instructionSetFactory;
   private final String fileName; // source file of SML code
 
   // line contains the characters in the current line that's not been processed yet
   private String line = "";
 
   /**
-   * Uses a beans.properties file for injection of respective InstructionSetFactory implementation
+   * Uses a Spring framework beans.xml file for injection of respective InstructionSetFactory implementation
    * @param fileName filepath of the sml file to run
    */
   public Translator(String fileName) {
     this.fileName =  fileName;
 
-    // Gets the InstructionSetFactory implementation specified in beans.properties
-    try {
-      Properties props = new Properties();
-      try (var fis = Translator.class.getResourceAsStream("/beans.properties")){
-        props.load(fis);
-      }
-
-      String instructionSetFactoryName = props.getProperty("instructionSetFactory.class");
-      Class<?> instructionSetFactoryClass = Class.forName(instructionSetFactoryName);
-      Constructor<?> constructor = instructionSetFactoryClass.getDeclaredConstructor();
-      this.instructionSetFactory = (InstructionSetFactory) constructor.newInstance();
-
-    } catch (IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
-             InstantiationException | IllegalAccessException exc) {
-      exc.printStackTrace();
-    }
+    // Gets the InstructionSetFactory implementation specified in beans.xml
+    BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
+    this.instructionSetFactory = (InstructionSetFactory)  factory.getBean("instructionSetFactory");
   }
 
   // TODO: add code for all other types of instructions [COMPLETED]

@@ -1,6 +1,7 @@
 package sml.classes;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import sml.Instruction;
 import sml.InstructionSetCoursework;
 import sml.InstructionSetFactory;
