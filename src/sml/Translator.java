@@ -1,11 +1,18 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 
@@ -17,11 +24,11 @@ import java.util.Scanner;
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author BBK staff member / Adam Rowley (GitHub username atrowley)
+ * @author BBK staff member / Adam Rowley (GitHub username: atrowley, Birkbeck ID: 13192359)
  */
 public final class Translator {
 
-    private final InstructionSetFactory instructionSetFactory;
+    private InstructionSetFactory instructionSetFactory;
     private final String fileName; // source file of SML code
 
     // line contains the characters in the current line that's not been processed yet
@@ -34,8 +41,26 @@ public final class Translator {
     public Translator(String fileName) {
         this.fileName =  fileName;
 
-        BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
-        this.instructionSetFactory = (InstructionSetFactory)  factory.getBean("instructionSetFactory");
+//        BeanFactory factory = new ClassPathXmlApplicationContext("/beans.xml");
+//        this.instructionSetFactory = (InstructionSetFactory)  factory.getBean("instructionSetFactory");
+
+        // Gets the InstructionSetFactory implementation specified in beans.properties
+        try {
+            Properties props = new Properties();
+            try (var fis = Translator.class.getResourceAsStream("/beans.properties")){
+                props.load(fis);
+            }
+
+            String instructionSetFactoryName = props.getProperty("instructionSetFactory.class");
+            Class<?> instructionSetFactoryClass = Class.forName(instructionSetFactoryName);
+            Constructor<?> constructor = instructionSetFactoryClass.getDeclaredConstructor();
+            this.instructionSetFactory = (InstructionSetFactory) constructor.newInstance();
+
+        } catch (IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
+                 InstantiationException | IllegalAccessException exc) {
+            exc.printStackTrace();
+        }
+
     }
 
     // translate the small program in the file into lab (the labels) and

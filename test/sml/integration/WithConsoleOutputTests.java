@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.integration;
 
 import org.junit.jupiter.api.AfterEach;
@@ -15,6 +19,8 @@ import java.io.PrintStream;
 /**
  * This class contains tests that validate whether the final console output
  * matches the expected output after executing a test sml file
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 public class WithConsoleOutputTests {
 

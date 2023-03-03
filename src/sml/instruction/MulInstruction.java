@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.instruction;
 import sml.InstructionWithResultAndSource;
 import sml.Machine;
@@ -14,7 +18,7 @@ import sml.RegisterName;
  * a result and source register as an operand. This class handles specific functionality
  * relating to the addition operation.
  *
- * @author Adam Rowley
+ * @author Adam Rowley (Birkbeck ID: 13192359)
  * @author GitHub username atrowley
  */
 public class MulInstruction extends InstructionWithResultAndSource {

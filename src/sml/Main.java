@@ -1,5 +1,6 @@
 // Name: Adam Rowley
-// Username (github): atrowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
 
 package sml;
 

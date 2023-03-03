@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.classes;
 
 import org.junit.jupiter.api.*;
@@ -5,6 +9,9 @@ import sml.Labels;
 
 /**
  * This class contains tests that relate to the Labels class
+ *
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 public class LabelsTest {
 

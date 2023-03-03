@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.instruction;
 
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +17,8 @@ import static sml.Registers.Register.*;
 /**
  * This class contains JUNIT tests for testing functionality
  * of the SubInstruction class
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 class SubInstructionTest {
   private Machine machine;

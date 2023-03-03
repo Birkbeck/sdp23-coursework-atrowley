@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.instruction;
 
 import sml.Instruction;
@@ -14,7 +18,7 @@ import java.util.Objects;
  * The superclass handles all common functionality of instructions. This class
  * handles specific functionality relating to the "jump" operation.
  *
- * @author Adam Rowley
+ * @author Adam Rowley (Birkbeck ID: 13192359)
  * @author GitHub username atrowley
  */
 public class JnzInstruction extends Instruction {

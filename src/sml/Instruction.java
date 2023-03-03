@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml;
 
 // TODO: write a JavaDoc for the class
@@ -12,7 +16,7 @@ package sml;
  * toString()<br>
  * equals()<br>
  * hashCode()
- * @author BBK staff member / updated by Adam Rowley (GitHub username atrowley)
+ * @author BBK staff member / updated by Adam Rowley (ID 13192359, GitHub username: atrowley)
  */
 public abstract class
 Instruction {

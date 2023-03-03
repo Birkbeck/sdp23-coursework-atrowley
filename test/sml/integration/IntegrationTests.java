@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.integration;
 
 import org.junit.jupiter.api.*;
@@ -9,7 +13,9 @@ import static sml.Registers.Register.*;
 
 /**
  * This class contains tests that validate whether a stated register contains the
- * expected result after executing a test sml file
+ * expected result after executing a test sml file@author Adam Rowley (Birkbeck ID: 13192359)
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 class IntegrationTests {
 

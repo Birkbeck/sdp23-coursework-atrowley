@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml;
 
 import java.util.HashMap;
@@ -18,7 +22,7 @@ import java.util.stream.Collectors;
  * <br><br>
  * Class is a singleton as only one instance is to exist in the program
  * @author BBK staff member (code)
- * @author Adam Rowley (javadocs only)
+ * @author Adam Rowley (javadocs and TO-DO items only) (Birkbeck ID: 13192359)
  */
 public final class Labels {
 

@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.instruction;
 
 import org.junit.jupiter.api.AfterEach;
@@ -12,14 +16,16 @@ import static sml.Instruction.NORMAL_PROGRAM_COUNTER_UPDATE;
 import static sml.Registers.Register.EAX;
 import static sml.Registers.Register.EBX;
 
+/**
+ * This class contains JUNIT tests for testing functionality
+ * of the MovInstruction class
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
+ */
 class MovInstructionTest {
   private Machine machine;
   private Registers registers;
 
-  /**
-   * This class contains JUNIT tests for testing functionality
-   * of the MovInstruction class
-   */
   @BeforeEach
   void setUp() {
     machine = Machine.getMachine(Registers.getRegisters());

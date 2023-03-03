@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.classes;
 
 import org.junit.jupiter.api.AfterEach;
@@ -11,8 +15,10 @@ import static sml.Registers.Register.EAX;
 import static sml.Registers.Register.EBX;
 
 /**
- * This class contains (limited) testing related to the Machine class
- * (moved out of other test class)
+ * This class contains testing related to the Machine class
+ * (moved out of other test classes)
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 public class MachineTest {
 

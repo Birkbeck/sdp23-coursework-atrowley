@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml.instruction;
 
 import org.junit.jupiter.api.*;
@@ -12,6 +16,8 @@ import static sml.Registers.Register.EAX;
 /**
  * This class contains JUNIT tests for testing functionality
  * of the JnzInstruction class
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 class JnzInstructionTest {
   private Machine machine;

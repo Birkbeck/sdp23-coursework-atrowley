@@ -1,3 +1,7 @@
+// Name: Adam Rowley
+// Username (GitHub): atrowley
+// Birkbeck ID: 13192359
+
 package sml;
 
 import java.lang.reflect.Constructor;
@@ -6,6 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 /**
  *  This class defines the instruction set factory that will be used for the specific
  *  Coursework instruction set.
+ *
+ * @author Adam Rowley (Birkbeck ID: 13192359)
+ * @author GitHub username atrowley
  */
 public class InstructionSetCW implements InstructionSetFactory {
 
